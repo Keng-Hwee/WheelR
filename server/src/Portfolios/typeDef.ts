@@ -6,7 +6,7 @@ export const typeDef = gql`
     name: String!
   }
 
-  extend type Query {
-    portfolios: [Portfolio]
+  type Query {
+    portfolios: [Portfolio!]!
   }
 `

@@ -1,15 +1,9 @@
 import { Config } from 'apollo-server'
+import portfolio from './Portfolios'
 
 export const config: Config = {
-  typeDefs: `
-        type Query {
-            greeting: String!
-        }
-    `,
-
+  typeDefs: [portfolio.typeDef],
   resolvers: {
-    Query: {
-      greeting: () => 'HELLO!',
-    },
+    Query: [],
   },
 }

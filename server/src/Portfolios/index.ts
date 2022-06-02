@@ -1,7 +1,4 @@
-// import { typeDef } from './typeDef'
+import { typeDef } from './typeDef'
+import { resolvers } from './resolver'
 
-// module.exports = {
-//   typeDef,
-// }
-
-export { typeDef } from './typeDef'
+export default { typeDef, resolvers }
