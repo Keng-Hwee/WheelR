@@ -1,5 +1,6 @@
-import { Portfolio } from '@prisma/client'
 import { Resolvers } from '../generated/graphql'
+import { Context } from '../context'
+import { Portfolio } from '@prisma/client'
 
 // interface Testss {
 //   portfolios: Portfolio
@@ -7,8 +8,12 @@ import { Resolvers } from '../generated/graphql'
 
 export const resolvers: Resolvers = {
   Query: {
-    portfolios: () => {
-      return []
+    portfolios: async (
+      _: any,
+      __: any,
+      { prisma }: Context
+    ): Promise<Portfolio[]> => {
+      return await prisma.portfolio.findMany()
     },
   },
 }

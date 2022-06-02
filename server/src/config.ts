@@ -1,4 +1,5 @@
 import { Config } from 'apollo-server'
+import { context } from './context'
 import portfolio from './Portfolios'
 
 export const config: Config = {
@@ -6,4 +7,5 @@ export const config: Config = {
   resolvers: {
     Query: [],
   },
+  context: context,
 }

@@ -15,13 +15,13 @@ export type Scalars = {
 
 export type Portfolio = {
   __typename?: 'Portfolio';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   name: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  portfolios: Array<Portfolio>;
+  portfolios: Array<Maybe<Portfolio>>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -95,7 +95,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Portfolio: ResolverTypeWrapper<Portfolio>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -104,20 +104,20 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
-  ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Portfolio: Portfolio;
   Query: {};
   String: Scalars['String'];
 }>;
 
 export type PortfolioResolvers<ContextType = any, ParentType extends ResolversParentTypes['Portfolio'] = ResolversParentTypes['Portfolio']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  portfolios?: Resolver<Array<ResolversTypes['Portfolio']>, ParentType, ContextType>;
+  portfolios?: Resolver<Array<Maybe<ResolversTypes['Portfolio']>>, ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
