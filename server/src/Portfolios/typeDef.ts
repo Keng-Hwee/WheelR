@@ -9,4 +9,8 @@ export const typeDef = gql`
   type Query {
     portfolios: [Portfolio]
   }
+
+  type Mutation {
+    addPortfolio(name: String!): Portfolio!
+  }
 `

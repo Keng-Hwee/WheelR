@@ -4,8 +4,6 @@ import portfolio from './Portfolios'
 
 export const config: Config = {
   typeDefs: [portfolio.typeDef],
-  resolvers: {
-    Query: [],
-  },
+  resolvers: [portfolio.resolvers],
   context: context,
 }
