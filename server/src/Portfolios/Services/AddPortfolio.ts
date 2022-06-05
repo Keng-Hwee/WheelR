@@ -1,5 +1,5 @@
-import { Portfolio } from '@prisma/client'
 import { Context } from '../../context'
+import { Portfolio } from '../../generated/graphql'
 
 export const AddPortfolio = async (
   { name }: { name: string },

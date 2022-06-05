@@ -7,7 +7,7 @@ generates:
       - 'typescript'
       - 'typescript-resolvers'
     config:
-      useIndexSignature: true
+      - useIndexSignature: true
   ./graphql.schema.json:
     plugins:
       - 'introspection'

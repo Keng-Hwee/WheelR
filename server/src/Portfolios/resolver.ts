@@ -1,11 +1,13 @@
 import {
   MutationAddPortfolioArgs,
   MutationUpdatePortfolioArgs,
+  Portfolio,
   Resolvers,
+  WheelGroup,
 } from '../generated/graphql'
 import { Context } from '../context'
-import { Portfolio } from '@prisma/client'
-import { PortfolioServices } from './Services/index'
+import { PortfolioService } from './Services/index'
+import { WheelGroupService } from '../WheelGroups/Services'
 
 export const resolvers: Resolvers = {
   Query: {
@@ -14,7 +16,15 @@ export const resolvers: Resolvers = {
       args: any,
       context: Context
     ): Promise<Portfolio[]> =>
-      await PortfolioServices.GetPortfolios(context),
+      await PortfolioService.GetPortfolios(context),
+  },
+  Portfolio: {
+    wheelGroups: async (
+      portfolio: Portfolio,
+      args: any,
+      context: Context
+    ): Promise<WheelGroup[]> =>
+      await WheelGroupService.GetWheelGroups(portfolio.id, context),
   },
 
   Mutation: {
@@ -23,13 +33,13 @@ export const resolvers: Resolvers = {
       { name }: MutationAddPortfolioArgs,
       context: Context
     ): Promise<Portfolio> =>
-      await PortfolioServices.AddPortfolio({ name }, context),
+      await PortfolioService.AddPortfolio({ name }, context),
 
     updatePortfolio: async (
       _: any,
       { id, name }: MutationUpdatePortfolioArgs,
       context: Context
     ): Promise<Portfolio> =>
-      await PortfolioServices.UpdatePortfolio({ id, name }, context),
+      await PortfolioService.UpdatePortfolio({ id, name }, context),
   },
 }

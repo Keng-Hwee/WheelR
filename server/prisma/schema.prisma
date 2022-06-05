@@ -21,10 +21,10 @@ model WheelGroup {
   name        String
   portfolioId Int
   porfolio    Portfolio @relation(fields: [portfolioId], references: [id])
-  wheels      Wheel[]
+  wheels      WheelItem[]
 }
 
-model Wheel {
+model WheelItem {
   id             Int        @id @default(autoincrement())
   name           String
   openPrice      Float
