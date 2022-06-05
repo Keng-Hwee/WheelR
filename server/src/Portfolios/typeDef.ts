@@ -12,5 +12,6 @@ export const typeDef = gql`
 
   type Mutation {
     addPortfolio(name: String!): Portfolio!
+    updatePortfolio(id: Int!, name: String!): Portfolio!
   }
 `

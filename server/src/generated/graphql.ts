@@ -17,10 +17,17 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addPortfolio: Portfolio;
+  updatePortfolio: Portfolio;
 };
 
 
 export type MutationAddPortfolioArgs = {
+  name: Scalars['String'];
+};
+
+
+export type MutationUpdatePortfolioArgs = {
+  id: Scalars['Int'];
   name: Scalars['String'];
 };
 
@@ -125,6 +132,7 @@ export type ResolversParentTypes = ResolversObject<{
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addPortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationAddPortfolioArgs, 'name'>>;
+  updatePortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationUpdatePortfolioArgs, 'id' | 'name'>>;
 }>;
 
 export type PortfolioResolvers<ContextType = any, ParentType extends ResolversParentTypes['Portfolio'] = ResolversParentTypes['Portfolio']> = ResolversObject<{
