@@ -27,11 +27,6 @@ test('should add new portfolio', async () => {
 })
 
 test('should fail if name is not provided', async () => {
-  const portfolio = {
-    id: 1,
-    name: '',
-  }
-
   mockCtx.prisma.portfolio.create.mockRejectedValue(
     new Error('Portfolio name cannot be empty.')
   )

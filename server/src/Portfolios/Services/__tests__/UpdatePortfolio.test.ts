@@ -81,7 +81,7 @@ test('should not update if updated name belongs to another portfolio', async () 
   }
 
   mockCtx.prisma.portfolio.findFirst
-    .mockResolvedValueOnce(oldPortfolio) // mock id does not exists in db
+    .mockResolvedValueOnce(oldPortfolio) // mock id exists in db
     .mockResolvedValueOnce(updatedPortfolio) // mock another portfolio with the same name
 
   await expect(
