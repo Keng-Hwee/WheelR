@@ -6,5 +6,5 @@ export const GetPortfolios = async (
 ): Promise<Portfolio[]> => {
   const prisma = context.prisma
 
-  return await prisma.wheel.findMany()
+  return await prisma.portfolio.findMany()
 }
