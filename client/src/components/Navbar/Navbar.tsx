@@ -1,19 +1,26 @@
-import { Flex } from "@chakra-ui/react"
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  Heading,
+  Spacer,
+} from '@chakra-ui/react'
+import { ColorModeSwitcher } from '../../ColorModeSwitcher'
 
 export const Navbar = () => {
-    return (
-        <Flex
-            as="nav"
-            align="center"
-            justify="space-between"
-            wrap="wrap"
-            w="100%"
-            mb={1}
-            p={8}
-        >
-            <p>Home</p>
-            <p>About</p>
-            <p>Settings</p>
-        </Flex>
-    )
+  return (
+    <Box m={5}>
+      <Flex minWidth="max-content" alignItems="center" gap="2">
+        <Box p="2">
+          <Heading size="md">WheelR App</Heading>
+        </Box>
+        <Spacer />
+        <ButtonGroup>
+          <Button>Logout</Button>
+          <ColorModeSwitcher justifySelf="flex-end" />
+        </ButtonGroup>
+      </Flex>
+    </Box>
+  )
 }
