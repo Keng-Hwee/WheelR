@@ -1,0 +1,3 @@
+GraphQL subscriptions
+- add in Folder for Query and Mutations -> business logic functions
+                                        -> takes in args and context from resolver

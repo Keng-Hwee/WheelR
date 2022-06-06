@@ -5,4 +5,8 @@ export const typeDef = gql`
     id: Int!
     name: String
   }
+
+  type Mutation {
+    addWheelGroup(portfolioId: Int!, name: String!): WheelGroup
+  }
 `
