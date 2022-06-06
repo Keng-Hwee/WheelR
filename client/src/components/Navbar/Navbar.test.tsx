@@ -4,6 +4,6 @@ import { Navbar } from './Navbar'
 
 test('renders navbar', () => {
   render(<Navbar />)
-  const navbarElement = screen.getByText('Home')
+  const navbarElement = screen.getByText('WheelR App')
   expect(navbarElement).toBeInTheDocument()
 })
