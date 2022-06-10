@@ -6,7 +6,8 @@ import {
   Heading,
   Spacer,
 } from '@chakra-ui/react'
-import { ColorModeSwitcher } from '../../ColorModeSwitcher'
+import { ColorModeSwitcher } from './ColorModeSwitcher'
+import { UserOptionMenu } from './UserOptionMenu'
 
 export const Navbar = () => {
   return (
@@ -17,7 +18,7 @@ export const Navbar = () => {
         </Box>
         <Spacer />
         <ButtonGroup>
-          <Button>Logout</Button>
+          <UserOptionMenu></UserOptionMenu>
           <ColorModeSwitcher justifySelf="flex-end" />
         </ButtonGroup>
       </Flex>
