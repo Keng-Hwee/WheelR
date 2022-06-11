@@ -1,7 +1,7 @@
 import { IconButton } from '@mui/material'
 import WbSunnyIcon from '@mui/icons-material/WbSunny'
 
-export const UserOptionMenu = () => {
+export const ThemeSwitch = () => {
   return (
     <IconButton
       color="primary"
