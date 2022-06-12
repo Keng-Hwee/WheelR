@@ -9,17 +9,37 @@ import {
 import React, { useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import { WheelTable } from './Wheels/WheelTable'
 
-type WheelGroupTableDataType = {
+type WheelGroupDataType = {
   name: string
   value: string
+  wheels: WheelDataType[]
+}
+
+type WheelDataType = {
+  name: string
+  premium: string
+  strike: string
+  closingDate: string
+  closedDate: string | null
+  quantity: number
+  active: boolean
 }
 
 export const WheelGroupTableRow = (props: {
-  data: WheelGroupTableDataType
+  data: WheelGroupDataType
 }) => {
   const row = props.data
   const [open, setOpen] = useState(false)
+
+  const activeWheels = row.wheels.filter(
+    (wheel) => wheel.active === true
+  )
+  const inActiveWheels = row.wheels.filter(
+    (wheel) => wheel.active === false
+  )
+  console.log(activeWheels)
 
   return (
     <React.Fragment>
@@ -49,9 +69,7 @@ export const WheelGroupTableRow = (props: {
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Active Contracts
-              </Typography>
+              <WheelTable data={row.wheels}></WheelTable>
             </Box>
           </Collapse>
         </TableCell>
