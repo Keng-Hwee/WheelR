@@ -1,23 +1,20 @@
 import { ThemeProvider } from '@emotion/react'
 import { createTheme, CssBaseline } from '@mui/material'
+import { useContext } from 'react'
 import { Navbar } from './components/Navbar/Navbar'
 
 import { Portfolio } from './components/Portfolio/Portfolio'
 import { WheelGroupTable } from './components/Portfolio/WheelGroups/WheelGroupTable'
+import {
+  AppTheme,
+  ColorModeContext,
+} from './components/Theme/AppTheme'
 
 export const App = () => {
-  const theme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  })
-
   return (
-    <ThemeProvider theme={theme}>
+    <AppTheme>
       <CssBaseline />
       <Navbar></Navbar>
-    </ThemeProvider>
+    </AppTheme>
   )
-  // <Portfolio></Portfolio>
-  // <WheelGroupTable></WheelGroupTable>
 }
