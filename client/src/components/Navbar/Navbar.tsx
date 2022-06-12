@@ -38,15 +38,17 @@ export const Navbar = () => {
     //   </Stack>
     // </Box>
 
-    <AppBar
-      position="static"
-      //sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}
-    >
+    <AppBar position="static" color="transparent" elevation={0}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography
+          color="primary"
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1 }}
+        >
           WHEELR
         </Typography>
-        <Button color="inherit">Login</Button>
+        <UserOptionMenu></UserOptionMenu>
         <ThemeSwitch></ThemeSwitch>
       </Toolbar>
     </AppBar>
