@@ -1,29 +1,21 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material'
-import { WheelGroupTableRow } from './WheelGroupTableRow'
+import { Box, Paper } from '@mui/material'
+import { Wheel } from './Wheel'
 
-export const WheelGroupTable = () => {
+export const Wheels = () => {
   const data = [
     {
-      name: 'SPY',
-      value: '$10,432.11',
+      name: 'SPY - abc1',
+      value: '$12,785.00',
       activeContracts: [
         {
           premium: '$120',
           strike: '$440',
           closingDate: '10/10/2022',
-          quantity: 1,
+          quantity: 2,
         },
         {
           premium: '$120',
-          strike: '$440',
+          strike: '$470',
           closingDate: '10/10/2022',
           quantity: 1,
         },
@@ -37,6 +29,18 @@ export const WheelGroupTable = () => {
           premium: '$120',
           strike: '$440',
           closingDate: '10/10/2022',
+          quantity: 1,
+        },
+        {
+          premium: '$120',
+          strike: '$440',
+          closingDate: '10/10/2022',
+          quantity: 1,
+        },
+        {
+          premium: '$110',
+          strike: '$420',
+          closingDate: '10/03/2022',
           quantity: 1,
         },
       ],
@@ -57,27 +61,21 @@ export const WheelGroupTable = () => {
           closingDate: '10/10/2022',
           quantity: 1,
         },
+        {
+          premium: '$110',
+          strike: '$420',
+          closingDate: '10/03/2022',
+          quantity: 1,
+        },
       ],
     },
   ]
 
   return (
-    <TableContainer component={Paper} sx={{ mt: 5 }} elevation={4}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Value</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell />
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((datum) => (
-            <WheelGroupTableRow key={datum.name} data={datum} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box>
+      {data.map((datum) => (
+        <Wheel key={datum.name} data={datum}></Wheel>
+      ))}
+    </Box>
   )
 }

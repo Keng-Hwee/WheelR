@@ -1,14 +1,16 @@
-import { TableCell, TableRow, Typography } from '@mui/material'
+import {
+  Button,
+  TableCell,
+  TableRow,
+  Typography,
+} from '@mui/material'
 import React from 'react'
 
 type WheelDataType = {
-  name: string
   premium: string
   strike: string
   closingDate: string
-  closedDate: string | null
   quantity: number
-  active: boolean
 }
 
 export const WheelTableRow = (props: { data: WheelDataType }) => {
@@ -18,19 +20,19 @@ export const WheelTableRow = (props: { data: WheelDataType }) => {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell component="th" scope="row">
-          {row.name}
-        </TableCell>
         <TableCell>{row.strike}</TableCell>
+        {/* <TableCell sx={{ border: 'none' }}>{row.strike}</TableCell> */}
         <TableCell>{row.premium}</TableCell>
         <TableCell>{row.closingDate}</TableCell>
         <TableCell>{row.quantity}</TableCell>
-        <TableCell>
-          {row.active ? (
-            <Typography color="primary">Active</Typography>
-          ) : (
-            <Typography color="error">InActive</Typography>
-          )}
+        <TableCell align="right">
+          <Button variant="contained" color="primary">
+            Close
+          </Button>
+          &nbsp;
+          <Button variant="contained" color="secondary">
+            Roll
+          </Button>
         </TableCell>
       </TableRow>
     </React.Fragment>

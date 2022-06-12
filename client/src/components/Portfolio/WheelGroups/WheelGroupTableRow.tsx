@@ -14,17 +14,14 @@ import { WheelTable } from './Wheels/WheelTable'
 type WheelGroupDataType = {
   name: string
   value: string
-  wheels: WheelDataType[]
+  activeContracts: WheelDataType[]
 }
 
 type WheelDataType = {
-  name: string
   premium: string
   strike: string
   closingDate: string
-  closedDate: string | null
   quantity: number
-  active: boolean
 }
 
 export const WheelGroupTableRow = (props: {
@@ -33,14 +30,6 @@ export const WheelGroupTableRow = (props: {
   const row = props.data
   const [open, setOpen] = useState(false)
 
-  const activeWheels = row.wheels.filter(
-    (wheel) => wheel.active === true
-  )
-  const inActiveWheels = row.wheels.filter(
-    (wheel) => wheel.active === false
-  )
-  console.log(activeWheels)
-
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -48,6 +37,9 @@ export const WheelGroupTableRow = (props: {
           {row.name}
         </TableCell>
         <TableCell>{row.value}</TableCell>
+        <TableCell>
+          {row.activeContracts.length} Active Contracts
+        </TableCell>
         <TableCell align="right">
           <IconButton
             aria-label="expand row"
@@ -63,13 +55,15 @@ export const WheelGroupTableRow = (props: {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell
-          style={{ paddingBottom: 0, paddingTop: 0 }}
-          colSpan={6}
-        >
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <WheelTable data={row.wheels}></WheelTable>
+        <TableCell style={{ padding: 0 }} colSpan={6}>
+          <Collapse
+            in={open}
+            timeout="auto"
+            unmountOnExit
+            sx={{ backgroundColor: 'action.hover' }}
+          >
+            <Box sx={{ margin: 3 }}>
+              <WheelTable data={row.activeContracts}></WheelTable>
             </Box>
           </Collapse>
         </TableCell>
