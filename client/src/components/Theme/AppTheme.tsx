@@ -1,5 +1,5 @@
 import { createTheme, ThemeProvider } from '@mui/material'
-import { createContext, useContext, useMemo, useState } from 'react'
+import { createContext, useMemo, useState } from 'react'
 
 type Props = {
   children?: JSX.Element | JSX.Element[]

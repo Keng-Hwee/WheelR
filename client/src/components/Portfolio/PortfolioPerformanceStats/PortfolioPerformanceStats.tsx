@@ -8,6 +8,8 @@
 //   Text,
 // } from '@chakra-ui/react'
 
+import { Paper, Typography } from '@mui/material'
+
 // export const PortfolioPerformanceStats = () => {
 //   const portfolioValue = '72,678.21'
 
@@ -26,5 +28,16 @@
 // }
 
 export const PortfolioPerformanceStats = () => {
-  return <div></div>
+  return (
+    <Paper elevation={4} sx={{ p: 2.5, mt: 4 }}>
+      <Typography
+        color="primary"
+        variant="h6"
+        sx={{ mb: 3, fontweight: 'light' }}
+      >
+        Portfolio Value
+      </Typography>
+      <Typography variant="h3">$72,888.22</Typography>
+    </Paper>
+  )
 }

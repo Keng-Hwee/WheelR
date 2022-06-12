@@ -1,42 +1,46 @@
-// import {
-//   Badge,
-//   Box,
-//   Icon,
-//   IconButton,
-//   Table,
-//   TableContainer,
-//   Tbody,
-//   Td,
-//   Tfoot,
-//   Th,
-//   Thead,
-//   Tr,
-// } from '@chakra-ui/react'
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material'
+import { WheelGroupTableRow } from './WheelGroupTableRow'
 
-// import { FaUser } from 'react-icons/fa'
-// import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc'
-
-// import { WheelGroupTableRow } from './WheelGroupTableRow'
-
-// export const WheelGroupTable = () => {
-//   return (
-//     <Box
-//       w="70vw"
-//       //   border="1px solid"
-//       //   borderColor="gray.100"
-//       m="auto auto"
-//       borderRadius="xl"
-//     >
-//       <Table size="lg" variant="simple">
-//         <Tbody>
-//           <WheelGroupTableRow></WheelGroupTableRow>
-//           <WheelGroupTableRow></WheelGroupTableRow>
-//           <WheelGroupTableRow></WheelGroupTableRow>
-//         </Tbody>
-//       </Table>
-//     </Box>
-//   )
-// }
 export const WheelGroupTable = () => {
-  return <div></div>
+  const data = [
+    {
+      name: 'SPY',
+      value: '$10,432.11',
+    },
+    {
+      name: 'ARKK',
+      value: '$7,895.00',
+    },
+    {
+      name: 'PLTR',
+      value: '$1,042.66',
+    },
+  ]
+
+  return (
+    <TableContainer component={Paper} sx={{ mt: 5 }} elevation={4}>
+      <Table aria-label="collapsible table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Value</TableCell>
+            <TableCell />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((datum) => (
+            <WheelGroupTableRow key={datum.name} data={datum} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
 }

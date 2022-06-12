@@ -1,24 +1,61 @@
-// import { Badge, Icon, Td, Tr } from '@chakra-ui/react'
-// import { VscTriangleUp } from 'react-icons/vsc'
+import {
+  Box,
+  Collapse,
+  IconButton,
+  TableCell,
+  TableRow,
+  Typography,
+} from '@mui/material'
+import React, { useState } from 'react'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-// export const WheelGroupTableRow = () => {
-//   return (
-//     <Tr
-//       //borderBottom="1px"
-//       //   borderColor="gray"
-//       _hover={{ borderColor: 'red' }}
-//     >
-//       <Td>ARKK</Td>
-//       <Td isNumeric>$375.22</Td>
-//       <Td>
-//         <Badge colorScheme="green">
-//           <Icon as={VscTriangleUp} /> &nbsp; 10.2%
-//         </Badge>
-//       </Td>
-//     </Tr>
-//   )
-// }
+type WheelGroupTableDataType = {
+  name: string
+  value: string
+}
 
-export const WheelGroupTableRow = () => {
-  return <div></div>
+export const WheelGroupTableRow = (props: {
+  data: WheelGroupTableDataType
+}) => {
+  const row = props.data
+  const [open, setOpen] = useState(false)
+
+  return (
+    <React.Fragment>
+      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+        <TableCell component="th" scope="row">
+          {row.name}
+        </TableCell>
+        <TableCell>{row.value}</TableCell>
+        <TableCell align="right">
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? (
+              <KeyboardArrowUpIcon />
+            ) : (
+              <KeyboardArrowDownIcon />
+            )}
+          </IconButton>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell
+          style={{ paddingBottom: 0, paddingTop: 0 }}
+          colSpan={6}
+        >
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                Active Contracts
+              </Typography>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  )
 }
