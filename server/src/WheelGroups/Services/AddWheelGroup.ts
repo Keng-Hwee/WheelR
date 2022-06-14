@@ -23,6 +23,7 @@ export const AddWheelGroup = async (
     data: {
       name,
       portfolioId,
+      value: 0,
     },
   })
 }
