@@ -19,6 +19,7 @@ model Portfolio {
 model WheelGroup {
   id          Int       @id @default(autoincrement())
   name        String
+  value       Float
   portfolioId Int
   porfolio    Portfolio @relation(fields: [portfolioId], references: [id])
   wheels      WheelItem[]
@@ -27,13 +28,25 @@ model WheelGroup {
 model WheelItem {
   id             Int        @id @default(autoincrement())
   name           String
-  openPrice      Float
-  strikePrice    Float
-  expirationDate DateTime
-  closeDate      DateTime
-  closed         Boolean
-  closePrice     Float
-  createdAt      DateTime
+  description    String
+  value          Float
   wheelGroupId   Int
   wheelGroup     WheelGroup @relation(fields: [wheelGroupId], references: [id])
+  contracts      Contract[]
 }
+
+model Contract {
+  id              Int @id @default(autoincrement())
+  ticker          String
+  strikePrice     String
+  expirationDate  DateTime
+  closed          Boolean
+  closeDate       DateTime
+  closePrice      Float
+  openAt          DateTime
+  premium         Float
+  wheelItemId     Int
+  wheelItem       WheelItem @relation(fields: [wheelItemId], references: [id])
+}
+
+

@@ -1,10 +1,12 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Paper } from '@mui/material'
 import { PortfolioPerformanceStats } from './PortfolioPerformanceStats/PortfolioPerformanceStats'
+import { WheelGroupTable } from './WheelGroups/WheelGroupTable'
 
 export const Portfolio = () => {
   return (
-    <Box m={5}>
+    <Box>
       <PortfolioPerformanceStats></PortfolioPerformanceStats>
+      <WheelGroupTable></WheelGroupTable>
     </Box>
   )
 }
