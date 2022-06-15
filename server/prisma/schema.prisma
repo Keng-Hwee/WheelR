@@ -13,40 +13,35 @@ datasource db {
 model Portfolio {
   id          Int          @id @default(autoincrement())
   name        String
-  wheelGroups WheelGroup[]
+  strategies  Strategy[]
 }
 
-model WheelGroup {
-  id          Int       @id @default(autoincrement())
-  name        String
-  value       Float
-  portfolioId Int
-  porfolio    Portfolio @relation(fields: [portfolioId], references: [id])
-  wheels      WheelItem[]
+model Strategy {
+  id            Int       @id @default(autoincrement())
+  name          String
+  description   String
+  ticker        String
+  value         Float
+  portfolioId   Int
+  porfolio      Portfolio @relation(fields: [portfolioId], references: [id])
+  trades        Trade[]
 }
 
-model WheelItem {
-  id             Int        @id @default(autoincrement())
-  name           String
-  description    String
-  value          Float
-  wheelGroupId   Int
-  wheelGroup     WheelGroup @relation(fields: [wheelGroupId], references: [id])
-  contracts      Contract[]
-}
-
-model Contract {
-  id              Int @id @default(autoincrement())
-  ticker          String
-  strikePrice     String
-  expirationDate  DateTime
-  closed          Boolean
-  closeDate       DateTime
-  closePrice      Float
-  openAt          DateTime
-  premium         Float
-  wheelItemId     Int
-  wheelItem       WheelItem @relation(fields: [wheelItemId], references: [id])
+model Trade {
+  id                Int       @id @default(autoincrement())
+  ticker            String
+  quantity          Float
+  action            String
+  type              String
+  openDate          DateTime
+  strikePrice       Float
+  expirationDate    DateTime
+  closeDate         DateTime
+  closePrice        Float
+  closeFee          Float
+  premium           Float
+  strategyId        Int
+  strategy          Strategy @relation(fields: [strategyId], references: [id])
 }
 
 
