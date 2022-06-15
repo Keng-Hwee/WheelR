@@ -17,7 +17,7 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   addPortfolio: Portfolio;
-  addWheelGroup?: Maybe<WheelGroup>;
+  addStrategy?: Maybe<Strategy>;
   updatePortfolio: Portfolio;
 };
 
@@ -27,9 +27,11 @@ export type MutationAddPortfolioArgs = {
 };
 
 
-export type MutationAddWheelGroupArgs = {
+export type MutationAddStrategyArgs = {
+  description?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   portfolioId: Scalars['Int'];
+  ticker: Scalars['String'];
 };
 
 
@@ -42,7 +44,6 @@ export type Portfolio = {
   __typename?: 'Portfolio';
   id: Scalars['Int'];
   name: Scalars['String'];
-  wheelGroups?: Maybe<Array<WheelGroup>>;
 };
 
 export type Query = {
@@ -50,10 +51,12 @@ export type Query = {
   portfolios?: Maybe<Array<Maybe<Portfolio>>>;
 };
 
-export type WheelGroup = {
-  __typename?: 'WheelGroup';
+export type Strategy = {
+  __typename?: 'Strategy';
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
-  name?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  ticker: Scalars['String'];
 };
 
 
@@ -130,8 +133,8 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Portfolio: ResolverTypeWrapper<Portfolio>;
   Query: ResolverTypeWrapper<{}>;
+  Strategy: ResolverTypeWrapper<Strategy>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  WheelGroup: ResolverTypeWrapper<WheelGroup>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -141,20 +144,19 @@ export type ResolversParentTypes = {
   Mutation: {};
   Portfolio: Portfolio;
   Query: {};
+  Strategy: Strategy;
   String: Scalars['String'];
-  WheelGroup: WheelGroup;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addPortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationAddPortfolioArgs, 'name'>>;
-  addWheelGroup?: Resolver<Maybe<ResolversTypes['WheelGroup']>, ParentType, ContextType, RequireFields<MutationAddWheelGroupArgs, 'name' | 'portfolioId'>>;
+  addStrategy?: Resolver<Maybe<ResolversTypes['Strategy']>, ParentType, ContextType, RequireFields<MutationAddStrategyArgs, 'name' | 'portfolioId' | 'ticker'>>;
   updatePortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationUpdatePortfolioArgs, 'id' | 'name'>>;
 };
 
 export type PortfolioResolvers<ContextType = any, ParentType extends ResolversParentTypes['Portfolio'] = ResolversParentTypes['Portfolio']> = {
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  wheelGroups?: Resolver<Maybe<Array<ResolversTypes['WheelGroup']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -162,9 +164,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   portfolios?: Resolver<Maybe<Array<Maybe<ResolversTypes['Portfolio']>>>, ParentType, ContextType>;
 };
 
-export type WheelGroupResolvers<ContextType = any, ParentType extends ResolversParentTypes['WheelGroup'] = ResolversParentTypes['WheelGroup']> = {
+export type StrategyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Strategy'] = ResolversParentTypes['Strategy']> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -172,6 +176,6 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Portfolio?: PortfolioResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  WheelGroup?: WheelGroupResolvers<ContextType>;
+  Strategy?: StrategyResolvers<ContextType>;
 };
 

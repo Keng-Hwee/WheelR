@@ -4,7 +4,7 @@ export const typeDef = gql`
   type Portfolio {
     id: Int!
     name: String!
-    wheelGroups: [WheelGroup!]
+    #stratgies: [Strategy!]
   }
 
   type Query {

@@ -19,7 +19,7 @@ model Portfolio {
 model Strategy {
   id            Int       @id @default(autoincrement())
   name          String
-  description   String
+  description   String?
   ticker        String
   value         Float
   portfolioId   Int
@@ -34,12 +34,13 @@ model Trade {
   action            String
   type              String
   openDate          DateTime
-  strikePrice       Float
-  expirationDate    DateTime
-  closeDate         DateTime
-  closePrice        Float
-  closeFee          Float
-  premium           Float
+  openFee           Float
+  strikePrice       Float?
+  expirationDate    DateTime?
+  closeDate         DateTime?
+  closePrice        Float?
+  closeFee          Float?
+  transaction       Float
   strategyId        Int
   strategy          Strategy @relation(fields: [strategyId], references: [id])
 }

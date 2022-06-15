@@ -1,10 +1,10 @@
 import { Config } from 'apollo-server'
 import { context } from './context'
 import portfolio from './Portfolios'
-import wheelGroup from './WheelGroups'
+import strategy from './Strategies'
 
 export const config: Config = {
-  typeDefs: [portfolio.typeDef, wheelGroup.typeDef],
+  typeDefs: [portfolio.typeDef, strategy.typeDef],
   resolvers: [portfolio.resolvers],
   context: context,
 }
