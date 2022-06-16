@@ -19,6 +19,10 @@ export const AddStrategy = async (
   if (existingPortfolio === undefined || existingPortfolio === null)
     throw new Error('Portfolio does not exist.')
 
+  if (name === '') throw new Error('Strategy name is required')
+
+  if (ticker === '') throw new Error('Strategy ticker is required')
+
   return await prisma.strategy.create({
     data: {
       name,

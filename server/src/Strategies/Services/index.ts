@@ -1,7 +1,7 @@
-// import { AddStrategy } from './AddStrategy'
-//import { GetWheelGroups } from './GetWheelGroups'
+import { AddStrategy } from './AddStrategy'
+import { GetStrategies } from './GetStrategies'
 
-export const WheelGroupService = {
-  //GetWheelGroups,
-  // AddStrategy,
+export const StrategyService = {
+  GetStrategies,
+  AddStrategy,
 }
