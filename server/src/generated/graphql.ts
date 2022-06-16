@@ -44,6 +44,7 @@ export type Portfolio = {
   __typename?: 'Portfolio';
   id: Scalars['Int'];
   name: Scalars['String'];
+  strategies?: Maybe<Array<Maybe<Strategy>>>;
 };
 
 export type Query = {
@@ -157,6 +158,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type PortfolioResolvers<ContextType = any, ParentType extends ResolversParentTypes['Portfolio'] = ResolversParentTypes['Portfolio']> = {
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  strategies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Strategy']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
