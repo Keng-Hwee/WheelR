@@ -16,4 +16,8 @@ const typeDef = gql`
     closeFee: Float
     transaction: Float
   }
+
+  type Query {
+    trades: [Trade]
+  }
 `
