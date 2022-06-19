@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,6 +12,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** Date custom scalar type */
+  Date: any;
 };
 
 export type Mutation = {
@@ -50,6 +52,7 @@ export type Portfolio = {
 export type Query = {
   __typename?: 'Query';
   portfolios?: Maybe<Array<Maybe<Portfolio>>>;
+  trades: Array<Trade>;
 };
 
 export type Strategy = {
@@ -58,6 +61,23 @@ export type Strategy = {
   id: Scalars['Int'];
   name: Scalars['String'];
   ticker: Scalars['String'];
+};
+
+export type Trade = {
+  __typename?: 'Trade';
+  action: Scalars['String'];
+  closeDate?: Maybe<Scalars['Date']>;
+  closeFee?: Maybe<Scalars['Float']>;
+  closePrice?: Maybe<Scalars['Float']>;
+  expirationDate?: Maybe<Scalars['Date']>;
+  id: Scalars['Int'];
+  openDate: Scalars['Date'];
+  openFee: Scalars['Float'];
+  quantity: Scalars['Float'];
+  strikePrice?: Maybe<Scalars['Float']>;
+  ticker: Scalars['String'];
+  transaction?: Maybe<Scalars['Float']>;
+  type: Scalars['String'];
 };
 
 
@@ -130,24 +150,34 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Portfolio: ResolverTypeWrapper<Portfolio>;
   Query: ResolverTypeWrapper<{}>;
   Strategy: ResolverTypeWrapper<Strategy>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Trade: ResolverTypeWrapper<Trade>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Date: Scalars['Date'];
+  Float: Scalars['Float'];
   Int: Scalars['Int'];
   Mutation: {};
   Portfolio: Portfolio;
   Query: {};
   Strategy: Strategy;
   String: Scalars['String'];
+  Trade: Trade;
 };
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addPortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationAddPortfolioArgs, 'name'>>;
@@ -164,6 +194,7 @@ export type PortfolioResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   portfolios?: Resolver<Maybe<Array<Maybe<ResolversTypes['Portfolio']>>>, ParentType, ContextType>;
+  trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType>;
 };
 
 export type StrategyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Strategy'] = ResolversParentTypes['Strategy']> = {
@@ -174,10 +205,29 @@ export type StrategyResolvers<ContextType = any, ParentType extends ResolversPar
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type TradeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Trade'] = ResolversParentTypes['Trade']> = {
+  action?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  closeDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  closeFee?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  closePrice?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  expirationDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  openDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  openFee?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  strikePrice?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  transaction?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  Date?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Portfolio?: PortfolioResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Strategy?: StrategyResolvers<ContextType>;
+  Trade?: TradeResolvers<ContextType>;
 };
 

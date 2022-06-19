@@ -1,23 +1,23 @@
 import { gql } from 'apollo-server'
 
-const typeDef = gql`
+export const typeDef = gql`
   type Trade {
     id: Int!
     ticker: String!
     quantity: Float!
     action: String!
     type: String!
-    openDate: DateTime!
+    openDate: Date!
     openFee: Float!
     strikePrice: Float
-    expirationDate: DateTime
-    closeDate: DateTime
+    expirationDate: Date
+    closeDate: Date
     closePrice: Float
     closeFee: Float
     transaction: Float
   }
 
   type Query {
-    trades: [Trade]
+    trades: [Trade!]!
   }
 `
