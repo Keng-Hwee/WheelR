@@ -52,7 +52,18 @@ export type Portfolio = {
 export type Query = {
   __typename?: 'Query';
   portfolios?: Maybe<Array<Maybe<Portfolio>>>;
+  trade: Trade;
   trades: Array<Trade>;
+};
+
+
+export type QueryTradeArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryTradesArgs = {
+  strategyId?: InputMaybe<Scalars['Int']>;
 };
 
 export type Strategy = {
@@ -194,7 +205,8 @@ export type PortfolioResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   portfolios?: Resolver<Maybe<Array<Maybe<ResolversTypes['Portfolio']>>>, ParentType, ContextType>;
-  trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType>;
+  trade?: Resolver<ResolversTypes['Trade'], ParentType, ContextType, RequireFields<QueryTradeArgs, 'id'>>;
+  trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType, Partial<QueryTradesArgs>>;
 };
 
 export type StrategyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Strategy'] = ResolversParentTypes['Strategy']> = {

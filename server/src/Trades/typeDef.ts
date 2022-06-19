@@ -18,6 +18,7 @@ export const typeDef = gql`
   }
 
   type Query {
-    trades: [Trade!]!
+    trades(strategyId: Int): [Trade!]!
+    trade(id: Int!): Trade!
   }
 `
