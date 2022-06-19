@@ -3,6 +3,7 @@ import {
   QueryTradeArgs,
   QueryTradesArgs,
   Trade,
+  TradeResult,
 } from '../generated/graphql'
 import { TradeService } from './Services'
 
@@ -19,7 +20,7 @@ export const resolvers = {
       _: any,
       { id }: QueryTradeArgs,
       context: Context
-    ): Promise<Trade> => {
+    ): Promise<TradeResult> => {
       return await TradeService.GetTrade(id, context)
     },
   },

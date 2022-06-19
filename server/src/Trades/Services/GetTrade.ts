@@ -1,11 +1,11 @@
 import Trades from '..'
 import { Context } from '../../context'
-import { Trade } from '../../generated/graphql'
+import { Trade, TradeResult } from '../../generated/graphql'
 
 export const GetTrade = async (
   id: number,
   context: Context
-): Promise<Trade> => {
+): Promise<TradeResult> => {
   const prisma = context.prisma
 
   const trade = await prisma.trade.findUnique({
@@ -15,5 +15,5 @@ export const GetTrade = async (
   })
 
   if (trade !== null) return trade
-  else return undefined
+  else return { message: 'Trade not found!' }
 }

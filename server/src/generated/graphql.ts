@@ -16,6 +16,11 @@ export type Scalars = {
   Date: any;
 };
 
+export type ApiError = {
+  __typename?: 'ApiError';
+  message: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPortfolio: Portfolio;
@@ -52,7 +57,7 @@ export type Portfolio = {
 export type Query = {
   __typename?: 'Query';
   portfolios?: Maybe<Array<Maybe<Portfolio>>>;
-  trade: Trade;
+  trade: TradeResult;
   trades: Array<Trade>;
 };
 
@@ -90,6 +95,8 @@ export type Trade = {
   transaction?: Maybe<Scalars['Float']>;
   type: Scalars['String'];
 };
+
+export type TradeResult = ApiError | Trade;
 
 
 
@@ -160,6 +167,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  ApiError: ResolverTypeWrapper<ApiError>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Date: ResolverTypeWrapper<Scalars['Date']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
@@ -170,10 +178,12 @@ export type ResolversTypes = {
   Strategy: ResolverTypeWrapper<Strategy>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Trade: ResolverTypeWrapper<Trade>;
+  TradeResult: ResolversTypes['ApiError'] | ResolversTypes['Trade'];
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  ApiError: ApiError;
   Boolean: Scalars['Boolean'];
   Date: Scalars['Date'];
   Float: Scalars['Float'];
@@ -184,6 +194,12 @@ export type ResolversParentTypes = {
   Strategy: Strategy;
   String: Scalars['String'];
   Trade: Trade;
+  TradeResult: ResolversParentTypes['ApiError'] | ResolversParentTypes['Trade'];
+};
+
+export type ApiErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['ApiError'] = ResolversParentTypes['ApiError']> = {
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
@@ -205,7 +221,7 @@ export type PortfolioResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   portfolios?: Resolver<Maybe<Array<Maybe<ResolversTypes['Portfolio']>>>, ParentType, ContextType>;
-  trade?: Resolver<ResolversTypes['Trade'], ParentType, ContextType, RequireFields<QueryTradeArgs, 'id'>>;
+  trade?: Resolver<ResolversTypes['TradeResult'], ParentType, ContextType, RequireFields<QueryTradeArgs, 'id'>>;
   trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType, Partial<QueryTradesArgs>>;
 };
 
@@ -234,12 +250,18 @@ export type TradeResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type TradeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['TradeResult'] = ResolversParentTypes['TradeResult']> = {
+  __resolveType: TypeResolveFn<'ApiError' | 'Trade', ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  ApiError?: ApiErrorResolvers<ContextType>;
   Date?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Portfolio?: PortfolioResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Strategy?: StrategyResolvers<ContextType>;
   Trade?: TradeResolvers<ContextType>;
+  TradeResult?: TradeResultResolvers<ContextType>;
 };
 

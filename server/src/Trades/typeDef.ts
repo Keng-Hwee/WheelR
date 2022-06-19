@@ -19,6 +19,8 @@ export const typeDef = gql`
 
   type Query {
     trades(strategyId: Int): [Trade!]!
-    trade(id: Int!): Trade!
+    trade(id: Int!): TradeResult!
   }
+
+  union TradeResult = Trade | ApiError
 `
