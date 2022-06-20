@@ -18,6 +18,7 @@ export type Scalars = {
 
 export type ApiError = {
   __typename?: 'ApiError';
+  code: Scalars['String'];
   message: Scalars['String'];
 };
 
@@ -57,8 +58,20 @@ export type Portfolio = {
 export type Query = {
   __typename?: 'Query';
   portfolios?: Maybe<Array<Maybe<Portfolio>>>;
+  strategies: Array<Strategy>;
+  strategy: StrategyResult;
   trade: TradeResult;
   trades: Array<Trade>;
+};
+
+
+export type QueryStrategiesArgs = {
+  portfolioId: Scalars['Int'];
+};
+
+
+export type QueryStrategyArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -78,6 +91,8 @@ export type Strategy = {
   name: Scalars['String'];
   ticker: Scalars['String'];
 };
+
+export type StrategyResult = ApiError | Strategy;
 
 export type Trade = {
   __typename?: 'Trade';
@@ -176,6 +191,7 @@ export type ResolversTypes = {
   Portfolio: ResolverTypeWrapper<Portfolio>;
   Query: ResolverTypeWrapper<{}>;
   Strategy: ResolverTypeWrapper<Strategy>;
+  StrategyResult: ResolversTypes['ApiError'] | ResolversTypes['Strategy'];
   String: ResolverTypeWrapper<Scalars['String']>;
   Trade: ResolverTypeWrapper<Trade>;
   TradeResult: ResolversTypes['ApiError'] | ResolversTypes['Trade'];
@@ -192,12 +208,14 @@ export type ResolversParentTypes = {
   Portfolio: Portfolio;
   Query: {};
   Strategy: Strategy;
+  StrategyResult: ResolversParentTypes['ApiError'] | ResolversParentTypes['Strategy'];
   String: Scalars['String'];
   Trade: Trade;
   TradeResult: ResolversParentTypes['ApiError'] | ResolversParentTypes['Trade'];
 };
 
 export type ApiErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['ApiError'] = ResolversParentTypes['ApiError']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -221,6 +239,8 @@ export type PortfolioResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   portfolios?: Resolver<Maybe<Array<Maybe<ResolversTypes['Portfolio']>>>, ParentType, ContextType>;
+  strategies?: Resolver<Array<ResolversTypes['Strategy']>, ParentType, ContextType, RequireFields<QueryStrategiesArgs, 'portfolioId'>>;
+  strategy?: Resolver<ResolversTypes['StrategyResult'], ParentType, ContextType, RequireFields<QueryStrategyArgs, 'id'>>;
   trade?: Resolver<ResolversTypes['TradeResult'], ParentType, ContextType, RequireFields<QueryTradeArgs, 'id'>>;
   trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType, Partial<QueryTradesArgs>>;
 };
@@ -231,6 +251,10 @@ export type StrategyResolvers<ContextType = any, ParentType extends ResolversPar
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type StrategyResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['StrategyResult'] = ResolversParentTypes['StrategyResult']> = {
+  __resolveType: TypeResolveFn<'ApiError' | 'Strategy', ParentType, ContextType>;
 };
 
 export type TradeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Trade'] = ResolversParentTypes['Trade']> = {
@@ -261,6 +285,7 @@ export type Resolvers<ContextType = any> = {
   Portfolio?: PortfolioResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Strategy?: StrategyResolvers<ContextType>;
+  StrategyResult?: StrategyResultResolvers<ContextType>;
   Trade?: TradeResolvers<ContextType>;
   TradeResult?: TradeResultResolvers<ContextType>;
 };

@@ -8,6 +8,11 @@ export const typeDef = gql`
     ticker: String!
   }
 
+  type Query {
+    strategies(portfolioId: Int!): [Strategy!]!
+    strategy(id: Int!): StrategyResult!
+  }
+
   type Mutation {
     addStrategy(
       portfolioId: Int!
@@ -16,4 +21,6 @@ export const typeDef = gql`
       ticker: String!
     ): Strategy
   }
+
+  union StrategyResult = Strategy | ApiError
 `

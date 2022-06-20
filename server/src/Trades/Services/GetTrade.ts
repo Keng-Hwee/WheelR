@@ -1,6 +1,7 @@
 import Trades from '..'
 import { Context } from '../../context'
 import { Trade, TradeResult } from '../../generated/graphql'
+import { ApiError } from '../../Utilities/typeDef'
 
 export const GetTrade = async (
   id: number,
@@ -15,5 +16,5 @@ export const GetTrade = async (
   })
 
   if (trade !== null) return trade
-  else return { message: 'Trade not found!' }
+  else return new ApiError('404', 'Trade not found')
 }
