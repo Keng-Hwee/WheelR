@@ -3,11 +3,12 @@ import {
   MutationUpdatePortfolioArgs,
   Portfolio,
   Resolvers,
-  WheelGroup,
+  Strategy,
 } from '../generated/graphql'
 import { Context } from '../context'
 import { PortfolioService } from './Services/index'
-import { WheelGroupService } from '../WheelGroups/Services'
+import { StrategyService } from '../Strategies/Services'
+//import { WheelGroupService } from '../WheelGroups/Services'
 
 export const resolvers: Resolvers = {
   Query: {
@@ -18,13 +19,14 @@ export const resolvers: Resolvers = {
     ): Promise<Portfolio[]> =>
       await PortfolioService.GetPortfolios(context),
   },
+
   Portfolio: {
-    wheelGroups: async (
+    strategies: async (
       portfolio: Portfolio,
       args: any,
       context: Context
-    ): Promise<WheelGroup[]> =>
-      await WheelGroupService.GetWheelGroups(portfolio.id, context),
+    ): Promise<Strategy[]> =>
+      await StrategyService.GetStrategies(portfolio.id, context),
   },
 
   Mutation: {

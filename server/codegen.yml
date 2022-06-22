@@ -8,6 +8,9 @@ generates:
       - 'typescript-resolvers'
     config:
       - useIndexSignature: true
+      - scalars:
+          - DateTime: any
+          - Date: any
   ./graphql.schema.json:
     plugins:
       - 'introspection'

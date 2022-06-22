@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -12,12 +12,20 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** Date custom scalar type */
+  Date: any;
+};
+
+export type ApiError = {
+  __typename?: 'ApiError';
+  code: Scalars['String'];
+  message: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   addPortfolio: Portfolio;
-  addWheelGroup?: Maybe<WheelGroup>;
+  addStrategy?: Maybe<Strategy>;
   updatePortfolio: Portfolio;
 };
 
@@ -27,9 +35,11 @@ export type MutationAddPortfolioArgs = {
 };
 
 
-export type MutationAddWheelGroupArgs = {
+export type MutationAddStrategyArgs = {
+  description?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   portfolioId: Scalars['Int'];
+  ticker: Scalars['String'];
 };
 
 
@@ -42,19 +52,66 @@ export type Portfolio = {
   __typename?: 'Portfolio';
   id: Scalars['Int'];
   name: Scalars['String'];
-  wheelGroups?: Maybe<Array<WheelGroup>>;
+  strategies?: Maybe<Array<Maybe<Strategy>>>;
 };
 
 export type Query = {
   __typename?: 'Query';
   portfolios?: Maybe<Array<Maybe<Portfolio>>>;
+  strategies: Array<Strategy>;
+  strategy: StrategyResult;
+  trade: TradeResult;
+  trades: Array<Trade>;
 };
 
-export type WheelGroup = {
-  __typename?: 'WheelGroup';
-  id: Scalars['Int'];
-  name?: Maybe<Scalars['String']>;
+
+export type QueryStrategiesArgs = {
+  portfolioId: Scalars['Int'];
 };
+
+
+export type QueryStrategyArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryTradeArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryTradesArgs = {
+  strategyId?: InputMaybe<Scalars['Int']>;
+};
+
+export type Strategy = {
+  __typename?: 'Strategy';
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  ticker: Scalars['String'];
+};
+
+export type StrategyResult = ApiError | Strategy;
+
+export type Trade = {
+  __typename?: 'Trade';
+  action: Scalars['String'];
+  closeDate?: Maybe<Scalars['Date']>;
+  closeFee?: Maybe<Scalars['Float']>;
+  closePrice?: Maybe<Scalars['Float']>;
+  expirationDate?: Maybe<Scalars['Date']>;
+  id: Scalars['Int'];
+  openDate: Scalars['Date'];
+  openFee: Scalars['Float'];
+  quantity: Scalars['Float'];
+  strikePrice?: Maybe<Scalars['Float']>;
+  ticker: Scalars['String'];
+  transaction?: Maybe<Scalars['Float']>;
+  type: Scalars['String'];
+};
+
+export type TradeResult = ApiError | Trade;
 
 
 
@@ -125,53 +182,111 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  ApiError: ResolverTypeWrapper<ApiError>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Portfolio: ResolverTypeWrapper<Portfolio>;
   Query: ResolverTypeWrapper<{}>;
+  Strategy: ResolverTypeWrapper<Strategy>;
+  StrategyResult: ResolversTypes['ApiError'] | ResolversTypes['Strategy'];
   String: ResolverTypeWrapper<Scalars['String']>;
-  WheelGroup: ResolverTypeWrapper<WheelGroup>;
+  Trade: ResolverTypeWrapper<Trade>;
+  TradeResult: ResolversTypes['ApiError'] | ResolversTypes['Trade'];
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  ApiError: ApiError;
   Boolean: Scalars['Boolean'];
+  Date: Scalars['Date'];
+  Float: Scalars['Float'];
   Int: Scalars['Int'];
   Mutation: {};
   Portfolio: Portfolio;
   Query: {};
+  Strategy: Strategy;
+  StrategyResult: ResolversParentTypes['ApiError'] | ResolversParentTypes['Strategy'];
   String: Scalars['String'];
-  WheelGroup: WheelGroup;
+  Trade: Trade;
+  TradeResult: ResolversParentTypes['ApiError'] | ResolversParentTypes['Trade'];
 };
+
+export type ApiErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['ApiError'] = ResolversParentTypes['ApiError']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addPortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationAddPortfolioArgs, 'name'>>;
-  addWheelGroup?: Resolver<Maybe<ResolversTypes['WheelGroup']>, ParentType, ContextType, RequireFields<MutationAddWheelGroupArgs, 'name' | 'portfolioId'>>;
+  addStrategy?: Resolver<Maybe<ResolversTypes['Strategy']>, ParentType, ContextType, RequireFields<MutationAddStrategyArgs, 'name' | 'portfolioId' | 'ticker'>>;
   updatePortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationUpdatePortfolioArgs, 'id' | 'name'>>;
 };
 
 export type PortfolioResolvers<ContextType = any, ParentType extends ResolversParentTypes['Portfolio'] = ResolversParentTypes['Portfolio']> = {
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  wheelGroups?: Resolver<Maybe<Array<ResolversTypes['WheelGroup']>>, ParentType, ContextType>;
+  strategies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Strategy']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   portfolios?: Resolver<Maybe<Array<Maybe<ResolversTypes['Portfolio']>>>, ParentType, ContextType>;
+  strategies?: Resolver<Array<ResolversTypes['Strategy']>, ParentType, ContextType, RequireFields<QueryStrategiesArgs, 'portfolioId'>>;
+  strategy?: Resolver<ResolversTypes['StrategyResult'], ParentType, ContextType, RequireFields<QueryStrategyArgs, 'id'>>;
+  trade?: Resolver<ResolversTypes['TradeResult'], ParentType, ContextType, RequireFields<QueryTradeArgs, 'id'>>;
+  trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType, Partial<QueryTradesArgs>>;
 };
 
-export type WheelGroupResolvers<ContextType = any, ParentType extends ResolversParentTypes['WheelGroup'] = ResolversParentTypes['WheelGroup']> = {
+export type StrategyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Strategy'] = ResolversParentTypes['Strategy']> = {
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type StrategyResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['StrategyResult'] = ResolversParentTypes['StrategyResult']> = {
+  __resolveType: TypeResolveFn<'ApiError' | 'Strategy', ParentType, ContextType>;
+};
+
+export type TradeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Trade'] = ResolversParentTypes['Trade']> = {
+  action?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  closeDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  closeFee?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  closePrice?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  expirationDate?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  openDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
+  openFee?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  strikePrice?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  transaction?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TradeResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['TradeResult'] = ResolversParentTypes['TradeResult']> = {
+  __resolveType: TypeResolveFn<'ApiError' | 'Trade', ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = any> = {
+  ApiError?: ApiErrorResolvers<ContextType>;
+  Date?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Portfolio?: PortfolioResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  WheelGroup?: WheelGroupResolvers<ContextType>;
+  Strategy?: StrategyResolvers<ContextType>;
+  StrategyResult?: StrategyResultResolvers<ContextType>;
+  Trade?: TradeResolvers<ContextType>;
+  TradeResult?: TradeResultResolvers<ContextType>;
 };
 

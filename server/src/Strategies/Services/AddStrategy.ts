@@ -1,13 +1,13 @@
 import { Context } from '../../context'
 import {
-  MutationAddWheelGroupArgs,
-  WheelGroup,
+  MutationAddStrategyArgs,
+  Strategy,
 } from '../../generated/graphql'
 
-export const AddWheelGroup = async (
-  { portfolioId, name }: MutationAddWheelGroupArgs,
+export const AddStrategy = async (
+  { portfolioId, name, description, ticker }: MutationAddStrategyArgs,
   context: Context
-): Promise<WheelGroup> => {
+): Promise<Strategy> => {
   const prisma = context.prisma
 
   const existingPortfolio = await prisma.portfolio.findUnique({
@@ -19,11 +19,17 @@ export const AddWheelGroup = async (
   if (existingPortfolio === undefined || existingPortfolio === null)
     throw new Error('Portfolio does not exist.')
 
-  return await prisma.wheelGroup.create({
+  if (name === '') throw new Error('Strategy name is required')
+
+  if (ticker === '') throw new Error('Strategy ticker is required')
+
+  return await prisma.strategy.create({
     data: {
       name,
       portfolioId,
       value: 0,
+      description,
+      ticker,
     },
   })
 }
