@@ -25,7 +25,7 @@ export type ApiError = {
 export type Mutation = {
   __typename?: 'Mutation';
   addPortfolio: PortfolioResult;
-  addStrategy?: Maybe<Strategy>;
+  addStrategy: StrategyResult;
   updatePortfolio: PortfolioResult;
 };
 
@@ -91,7 +91,10 @@ export type Strategy = {
   description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   name: Scalars['String'];
+  stockAveragePrice?: Maybe<Scalars['Int']>;
+  stockQuantity?: Maybe<Scalars['Int']>;
   ticker: Scalars['String'];
+  value?: Maybe<Scalars['Int']>;
 };
 
 export type StrategyResult = ApiError | Strategy;
@@ -230,7 +233,7 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addPortfolio?: Resolver<ResolversTypes['PortfolioResult'], ParentType, ContextType, RequireFields<MutationAddPortfolioArgs, 'name'>>;
-  addStrategy?: Resolver<Maybe<ResolversTypes['Strategy']>, ParentType, ContextType, RequireFields<MutationAddStrategyArgs, 'name' | 'portfolioId' | 'ticker'>>;
+  addStrategy?: Resolver<ResolversTypes['StrategyResult'], ParentType, ContextType, RequireFields<MutationAddStrategyArgs, 'name' | 'portfolioId' | 'ticker'>>;
   updatePortfolio?: Resolver<ResolversTypes['PortfolioResult'], ParentType, ContextType, RequireFields<MutationUpdatePortfolioArgs, 'id' | 'name'>>;
 };
 
@@ -257,7 +260,10 @@ export type StrategyResolvers<ContextType = any, ParentType extends ResolversPar
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  stockAveragePrice?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  stockQuantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -6,6 +6,9 @@ export const typeDef = gql`
     name: String!
     description: String
     ticker: String!
+    value: Int
+    stockAveragePrice: Int
+    stockQuantity: Int
   }
 
   type Query {
@@ -19,7 +22,7 @@ export const typeDef = gql`
       name: String!
       description: String
       ticker: String!
-    ): Strategy
+    ): StrategyResult!
   }
 
   union StrategyResult = Strategy | ApiError

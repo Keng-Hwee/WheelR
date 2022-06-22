@@ -29,11 +29,11 @@ export const resolvers: Resolvers = {
   Mutation: {
     addStrategy: async (
       _: any,
-      addWheelGroupArgs: MutationAddStrategyArgs,
+      addStrategyArgs: MutationAddStrategyArgs,
       context: Context
-    ): Promise<Strategy> =>
+    ): Promise<StrategyResult> =>
       await StrategyService.AddStrategy(
-        { ...addWheelGroupArgs },
+        { ...addStrategyArgs },
         context
       ),
   },
