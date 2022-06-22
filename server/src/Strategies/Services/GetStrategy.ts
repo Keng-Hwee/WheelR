@@ -15,6 +15,6 @@ export const GetStrategy = async (
   })
 
   if (strategy === null)
-    return new ApiError('404', 'Strategy not found')
+    return new ApiError(404, 'Strategy not found')
   else return strategy
 }

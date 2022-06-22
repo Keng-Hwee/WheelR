@@ -2,6 +2,7 @@ import {
   MutationAddPortfolioArgs,
   MutationUpdatePortfolioArgs,
   Portfolio,
+  PortfolioResult,
   Resolvers,
   Strategy,
 } from '../generated/graphql'
@@ -34,14 +35,14 @@ export const resolvers: Resolvers = {
       _: any,
       { name }: MutationAddPortfolioArgs,
       context: Context
-    ): Promise<Portfolio> =>
+    ): Promise<PortfolioResult> =>
       await PortfolioService.AddPortfolio({ name }, context),
 
     updatePortfolio: async (
       _: any,
       { id, name }: MutationUpdatePortfolioArgs,
       context: Context
-    ): Promise<Portfolio> =>
+    ): Promise<PortfolioResult> =>
       await PortfolioService.UpdatePortfolio({ id, name }, context),
   },
 }

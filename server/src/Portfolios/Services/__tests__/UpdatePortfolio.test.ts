@@ -5,6 +5,7 @@ import {
   createMockContext,
 } from '../../../context'
 import { Portfolio } from '@prisma/client'
+import { ApiError } from '../../../Utilities/typeDef'
 
 let mockCtx: MockContext
 let ctx: Context
@@ -50,7 +51,9 @@ test('should not update if no name provided', async () => {
       { id: updatedPortfolio.id, name: updatedPortfolio.name },
       ctx
     )
-  ).rejects.toEqual(new Error('Portfolio name cannot be empty.'))
+  ).rejects.toEqual(
+    new ApiError(400, 'Portfolio name cannot be empty.')
+  )
 })
 
 test('should not update if id provided does not exist', async () => {
@@ -66,7 +69,7 @@ test('should not update if id provided does not exist', async () => {
       { id: updatedPortfolio.id, name: updatedPortfolio.name },
       ctx
     )
-  ).rejects.toEqual(new Error('Portfolio does not exist.'))
+  ).rejects.toEqual(new ApiError(404, 'Portfolio does not exist.'))
 })
 
 test('should not update if updated name belongs to another portfolio', async () => {
@@ -90,7 +93,8 @@ test('should not update if updated name belongs to another portfolio', async () 
       ctx
     )
   ).rejects.toEqual(
-    new Error(
+    new ApiError(
+      400,
       'An existing portfolio with specified name already exist.'
     )
   )

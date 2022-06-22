@@ -14,7 +14,7 @@
         "description": null,
         "fields": [
           {
-            "name": "code",
+            "name": "message",
             "description": null,
             "args": [],
             "type": {
@@ -30,7 +30,7 @@
             "deprecationReason": null
           },
           {
-            "name": "message",
+            "name": "statusCode",
             "description": null,
             "args": [],
             "type": {
@@ -38,7 +38,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "Int",
                 "ofType": null
               }
             },
@@ -121,8 +121,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "Portfolio",
+                "kind": "UNION",
+                "name": "PortfolioResult",
                 "ofType": null
               }
             },
@@ -243,8 +243,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "OBJECT",
-                "name": "Portfolio",
+                "kind": "UNION",
+                "name": "PortfolioResult",
                 "ofType": null
               }
             },
@@ -315,6 +315,27 @@
         "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
+      },
+      {
+        "kind": "UNION",
+        "name": "PortfolioResult",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "ApiError",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Portfolio",
+            "ofType": null
+          }
+        ]
       },
       {
         "kind": "OBJECT",

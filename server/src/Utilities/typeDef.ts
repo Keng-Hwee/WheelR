@@ -1,11 +1,11 @@
 import { gql } from 'apollo-server'
 
 export class ApiError {
-  code: string
+  statusCode: number
   message: string
 
-  constructor(code: string, message: string) {
-    this.code = code
+  constructor(statusCode: number, message: string) {
+    this.statusCode = statusCode
     this.message = message
   }
 }
@@ -14,7 +14,7 @@ export const typeDef = gql`
   scalar Date
 
   type ApiError {
-    code: String!
+    statusCode: Int!
     message: String!
   }
 `

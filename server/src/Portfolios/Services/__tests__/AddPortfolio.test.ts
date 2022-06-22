@@ -4,6 +4,7 @@ import {
   Context,
   createMockContext,
 } from '../../../context'
+import { ApiError } from '../../../Utilities/typeDef'
 
 let mockCtx: MockContext
 let ctx: Context
@@ -27,12 +28,8 @@ test('should add new portfolio', async () => {
 })
 
 test('should fail if name is not provided', async () => {
-  mockCtx.prisma.portfolio.create.mockRejectedValue(
-    new Error('Portfolio name cannot be empty.')
-  )
-
   await expect(AddPortfolio({ name: '' }, ctx)).rejects.toEqual(
-    new Error('Portfolio name cannot be empty.')
+    new ApiError(400, 'Portfolio name cannot be empty.')
   )
 })
 
@@ -47,7 +44,8 @@ test('should fail if portfolio with same name already exists', async () => {
   await expect(
     AddPortfolio({ name: portfolio.name }, ctx)
   ).rejects.toEqual(
-    new Error(
+    new ApiError(
+      400,
       'An existing portfolio with specified name already exist.'
     )
   )

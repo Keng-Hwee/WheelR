@@ -18,15 +18,15 @@ export type Scalars = {
 
 export type ApiError = {
   __typename?: 'ApiError';
-  code: Scalars['String'];
   message: Scalars['String'];
+  statusCode: Scalars['Int'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addPortfolio: Portfolio;
+  addPortfolio: PortfolioResult;
   addStrategy?: Maybe<Strategy>;
-  updatePortfolio: Portfolio;
+  updatePortfolio: PortfolioResult;
 };
 
 
@@ -54,6 +54,8 @@ export type Portfolio = {
   name: Scalars['String'];
   strategies?: Maybe<Array<Maybe<Strategy>>>;
 };
+
+export type PortfolioResult = ApiError | Portfolio;
 
 export type Query = {
   __typename?: 'Query';
@@ -189,6 +191,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   Portfolio: ResolverTypeWrapper<Portfolio>;
+  PortfolioResult: ResolversTypes['ApiError'] | ResolversTypes['Portfolio'];
   Query: ResolverTypeWrapper<{}>;
   Strategy: ResolverTypeWrapper<Strategy>;
   StrategyResult: ResolversTypes['ApiError'] | ResolversTypes['Strategy'];
@@ -206,6 +209,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   Mutation: {};
   Portfolio: Portfolio;
+  PortfolioResult: ResolversParentTypes['ApiError'] | ResolversParentTypes['Portfolio'];
   Query: {};
   Strategy: Strategy;
   StrategyResult: ResolversParentTypes['ApiError'] | ResolversParentTypes['Strategy'];
@@ -215,8 +219,8 @@ export type ResolversParentTypes = {
 };
 
 export type ApiErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['ApiError'] = ResolversParentTypes['ApiError']> = {
-  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  statusCode?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -225,9 +229,9 @@ export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addPortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationAddPortfolioArgs, 'name'>>;
+  addPortfolio?: Resolver<ResolversTypes['PortfolioResult'], ParentType, ContextType, RequireFields<MutationAddPortfolioArgs, 'name'>>;
   addStrategy?: Resolver<Maybe<ResolversTypes['Strategy']>, ParentType, ContextType, RequireFields<MutationAddStrategyArgs, 'name' | 'portfolioId' | 'ticker'>>;
-  updatePortfolio?: Resolver<ResolversTypes['Portfolio'], ParentType, ContextType, RequireFields<MutationUpdatePortfolioArgs, 'id' | 'name'>>;
+  updatePortfolio?: Resolver<ResolversTypes['PortfolioResult'], ParentType, ContextType, RequireFields<MutationUpdatePortfolioArgs, 'id' | 'name'>>;
 };
 
 export type PortfolioResolvers<ContextType = any, ParentType extends ResolversParentTypes['Portfolio'] = ResolversParentTypes['Portfolio']> = {
@@ -235,6 +239,10 @@ export type PortfolioResolvers<ContextType = any, ParentType extends ResolversPa
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   strategies?: Resolver<Maybe<Array<Maybe<ResolversTypes['Strategy']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PortfolioResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['PortfolioResult'] = ResolversParentTypes['PortfolioResult']> = {
+  __resolveType: TypeResolveFn<'ApiError' | 'Portfolio', ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -283,6 +291,7 @@ export type Resolvers<ContextType = any> = {
   Date?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Portfolio?: PortfolioResolvers<ContextType>;
+  PortfolioResult?: PortfolioResultResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Strategy?: StrategyResolvers<ContextType>;
   StrategyResult?: StrategyResultResolvers<ContextType>;

@@ -1,13 +1,15 @@
-import { Portfolio } from '@prisma/client'
 import { Context } from '../../context'
+import { PortfolioResult } from '../../generated/graphql'
+import { ApiError } from '../../Utilities/typeDef'
 
 export const UpdatePortfolio = async (
   { id, name }: { id: number; name: string },
   context: Context
-): Promise<Portfolio> => {
+): Promise<PortfolioResult> => {
   const prisma = context.prisma
 
-  if (!name) throw new Error('Portfolio name cannot be empty.')
+  if (!name)
+    throw new ApiError(400, 'Portfolio name cannot be empty.')
 
   const existingPortfolioWithSameId =
     await prisma.portfolio.findFirst({
@@ -20,7 +22,7 @@ export const UpdatePortfolio = async (
     existingPortfolioWithSameId === undefined ||
     existingPortfolioWithSameId === null
   ) {
-    throw new Error('Portfolio does not exist.')
+    throw new ApiError(404, 'Portfolio does not exist.')
   }
 
   const existingPortfolioWithSameName =
@@ -34,7 +36,8 @@ export const UpdatePortfolio = async (
     })
 
   if (existingPortfolioWithSameName) {
-    throw new Error(
+    throw new ApiError(
+      400,
       'An existing portfolio with specified name already exist.'
     )
   }

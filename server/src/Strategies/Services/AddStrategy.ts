@@ -30,6 +30,8 @@ export const AddStrategy = async (
       value: 0,
       description,
       ticker,
+      stockAveragePrice: 0,
+      stockQuantity: 0,
     },
   })
 }

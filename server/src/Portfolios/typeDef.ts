@@ -12,7 +12,9 @@ export const typeDef = gql`
   }
 
   type Mutation {
-    addPortfolio(name: String!): Portfolio!
-    updatePortfolio(id: Int!, name: String!): Portfolio!
+    addPortfolio(name: String!): PortfolioResult!
+    updatePortfolio(id: Int!, name: String!): PortfolioResult!
   }
+
+  union PortfolioResult = Portfolio | ApiError
 `
