@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/Strategies/Services/GetStrategy.ts</title>
+    <title>Code coverage report for src/Trades/Services/GetTrade.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/Strategies/Services</a> GetStrategy.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/Trades/Services</a> GetTrade.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -102,23 +102,23 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Context } from '../../context'
-import { Strategy } from '../../generated/graphql'
+import { TradeResult } from '../../generated/graphql'
 import { ApiError } from '../../Utilities/typeDef'
 &nbsp;
-export const GetStrategy = async (
+export const GetTrade = async (
   id: number,
   context: Context
-): Promise&lt;Strategy | ApiError&gt; =&gt; {
+): Promise&lt;TradeResult&gt; =&gt; {
   const prisma = context.prisma
 &nbsp;
-  const strategy = await prisma.strategy.findUnique({
+  const trade = await prisma.trade.findUnique({
     where: {
       id,
     },
   })
 &nbsp;
-  if (strategy === null) throw new ApiError(404, 'Strategy not found')
-  else return strategy
+  if (trade !== null) return trade
+  else throw new ApiError(404, 'Trade not found')
 }
 &nbsp;</pre></td></tr></table></pre>
 

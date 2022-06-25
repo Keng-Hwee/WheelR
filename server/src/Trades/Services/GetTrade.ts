@@ -15,5 +15,5 @@ export const GetTrade = async (
   })
 
   if (trade !== null) return trade
-  else return new ApiError(404, 'Trade not found')
+  else throw new ApiError(404, 'Trade not found')
 }
