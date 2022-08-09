@@ -1,4 +1,4 @@
-import Card from '../../components/common/Card'
+import { Card } from '../../components/common/Card'
 import PortfolioTrend from '../../components/dashboard/PortfolioTrend'
 import PremiumCollected from '../../components/dashboard/PremiumCollected'
 import StrategyList from '../../components/dashboard/StrategyList'
