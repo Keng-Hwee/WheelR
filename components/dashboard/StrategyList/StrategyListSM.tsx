@@ -1,7 +1,7 @@
-import SectionHeader from '../common/SectionHeader'
-import { Card, CardBody, CardHeader } from '../common/Card'
+import SectionHeader from '../../common/SectionHeader'
+import { Card, CardBody, CardHeader } from '../../common/Card'
 
-const StrategyList = () => {
+const StrategyListSM = () => {
   const strategyList = [
     {
       id: 1,
@@ -28,7 +28,6 @@ const StrategyList = () => {
 
   return (
     <div>
-      <SectionHeader headerName="TRADES" />
       <Card>
         <CardBody>
           <div>
@@ -81,4 +80,4 @@ const StrategyList = () => {
   )
 }
 
-export default StrategyList
+export default StrategyListSM
