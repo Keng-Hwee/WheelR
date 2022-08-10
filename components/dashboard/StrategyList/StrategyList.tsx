@@ -32,7 +32,7 @@ const StrategyList = () => {
 
   return (
     <>
-      <SectionHeader headerName="TRADES" />
+      <SectionHeader headerName="STRATEGIES" />
       <div className="sm:hidden">
         <StrategyListXS></StrategyListXS>
       </div>

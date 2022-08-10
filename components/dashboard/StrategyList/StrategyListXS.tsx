@@ -14,21 +14,21 @@ const StrategyListXSCard = ({
   premium,
 }: Props) => {
   return (
-    <div className="rounded-lg bg-slate-50 p-4 drop-shadow-md mb-3">
+    <div className="rounded-lg bg-slate-50 p-3 drop-shadow-md mb-3">
       <div className="flex flex-row space-x-4 items-start justify-between">
         <p className="text-slate-800 font-medium text-lg">{name}</p>
-        <p className="text-slate-800 font-semibold bg-slate-200 tracking-wider rounded-lg px-2 py-1 text-sm">
+        <p className="text-slate-500 font-semibold bg-slate-200 bg-opacity-70 tracking-wider rounded-lg px-2 py-1 text-sm">
           {ticker}
         </p>
       </div>
-      <div className="flex flex-row space-x-5">
-        <p className="text-slate-500 tracking-wider font-semibold mt-4">
+      <div className="flex flex-row space-x-5 text-sm mt-4">
+        <p className="text-slate-400 tracking-wider font-semibold mt-4">
           Value:{' '}
           <span className="text-green-600 tracking-wider font-semibold">
             {value}
           </span>
         </p>
-        <p className="text-slate-500 tracking-wider font-semibold mt-4">
+        <p className="text-slate-400 tracking-wider font-semibold mt-4">
           Premiums Collected:{' '}
           <span className="text-green-600 tracking-wider font-semibold">
             {premium}
