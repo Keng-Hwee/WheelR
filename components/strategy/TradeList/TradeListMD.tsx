@@ -1,11 +1,9 @@
-import { Card } from '../common/Card'
 import {
   PencilIcon,
   TrashIcon,
   MinusCircleIcon,
 } from '@heroicons/react/outline'
-import SectionHeader from '../common/SectionHeader'
-const TradeList = () => {
+const TradeListMD = () => {
   const trades = [
     {
       id: 1,
@@ -55,7 +53,6 @@ const TradeList = () => {
 
   return (
     <div>
-      <SectionHeader headerName="TRADES" />
       <div className="drop-shadow-md rounded-lg bg-slate-50 p-4">
         <table className="w-full">
           <thead className="text-slate-400">
@@ -127,4 +124,4 @@ const TradeList = () => {
   )
 }
 
-export default TradeList
+export default TradeListMD

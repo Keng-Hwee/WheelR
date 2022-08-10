@@ -5,7 +5,7 @@ import {
 } from '../../components/common/Card'
 import PremiumCollectionChart from '../../components/strategy/PremiumCollectionChart'
 import StrategyValueChart from '../../components/strategy/StrategyValueChart'
-import TradeList from '../../components/strategy/TradeList'
+import TradeList from '../../components/strategy/TradeList/TradeList'
 
 const Strategy = () => {
   return (
