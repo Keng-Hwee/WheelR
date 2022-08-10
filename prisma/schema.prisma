@@ -43,6 +43,7 @@ model Trade {
   closePrice          Float?
   closeFee            Float?
   transaction         Float
+  assigned            Boolean?
   strategyId          Int
   strategy            Strategy   @relation(fields: [strategyId], references: [id])
 }
