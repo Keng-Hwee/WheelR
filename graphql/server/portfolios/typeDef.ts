@@ -8,7 +8,8 @@ export const typeDef = gql`
   }
 
   type Query {
-    portfolios: [Portfolio]
+    portfolio(id: Int!): PortfolioResult
+    portfolios: [PortfolioResult]
   }
 
   type Mutation {

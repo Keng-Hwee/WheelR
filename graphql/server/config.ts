@@ -1,5 +1,5 @@
 import { Config } from 'apollo-server-micro'
-import { context } from './context'
+import { context } from '../context'
 import portfolio from './portfolios'
 import strategy from './strategies'
 import trade from './trades'

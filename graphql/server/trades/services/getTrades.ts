@@ -1,4 +1,4 @@
-import { Context } from '../../context'
+import { Context } from '../../../context'
 
 export const getTrades = async (
   strategyId: number | null | undefined,

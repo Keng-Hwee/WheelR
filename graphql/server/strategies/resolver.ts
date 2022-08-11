@@ -1,4 +1,4 @@
-import { Context } from '../context'
+import { Context } from '../../context'
 import { strategyService } from './services'
 
 export const resolvers = {
@@ -19,10 +19,11 @@ export const resolvers = {
       _: any,
       addStrategyArgs: any,
       context: Context
-    ) =>
-      await strategyService.addStrategy(
+    ) => {
+      return await strategyService.addStrategy(
         { ...addStrategyArgs },
         context
-      ),
+      )
+    },
   },
 }

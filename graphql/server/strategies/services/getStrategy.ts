@@ -1,4 +1,4 @@
-import { Context } from '../../context'
+import { Context } from '../../../context'
 import { ApiError } from '../../utilities/typeDef'
 
 export const getStrategy = async (id: number, context: Context) => {

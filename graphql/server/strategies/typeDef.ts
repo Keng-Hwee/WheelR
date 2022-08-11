@@ -6,9 +6,9 @@ export const typeDef = gql`
     name: String!
     description: String
     ticker: String!
-    value: Int
-    stockAveragePrice: Int
-    stockQuantity: Int
+    value: Float!
+    stockAveragePrice: Float
+    stockQuantity: Float
   }
 
   type Query {

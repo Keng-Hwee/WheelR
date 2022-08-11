@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-micro'
-import { apolloServerConfig } from '../../graphql/config'
+import { apolloServerConfig } from '../../graphql/server/config'
 import { PageConfig } from 'next'
 import { IncomingMessage, ServerResponse } from 'http'
 
