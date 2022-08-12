@@ -2,8 +2,12 @@ import { Card } from '../../components/common/Card'
 import PortfolioTrend from '../../components/dashboard/PortfolioTrend'
 import PremiumCollected from '../../components/dashboard/PremiumCollected'
 import StrategyList from '../../components/dashboard/StrategyList/StrategyList'
-
+import { useGetPortfolioForDashboardQuery } from '../../graphql/generated/graphql-backend'
 const Dashboard = () => {
+  const { data, isLoading } = useGetPortfolioForDashboardQuery({
+    portfolioId: 1,
+  })
+  console.log(data)
   return (
     <>
       <div className="lg:flex lg:flex-row lg:justify-center mt-5">

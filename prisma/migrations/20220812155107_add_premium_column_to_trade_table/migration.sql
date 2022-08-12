@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Trade" ADD COLUMN     "premium" DOUBLE PRECISION NOT NULL DEFAULT 0;

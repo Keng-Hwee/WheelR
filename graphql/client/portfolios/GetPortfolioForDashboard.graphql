@@ -1,10 +1,12 @@
-query GetPortfolioForDashboard($id: Int!) {
-  portfolio(id: $id) {
-    name
-    strategies {
+query GetPortfolioForDashboard($portfolioId: Int!) {
+  portfolio(id: $portfolioId) {
+    ... on Portfolio {
       name
-      ticker
-      value
+      strategies {
+        name
+        ticker
+        value
+      }
     }
   }
 }

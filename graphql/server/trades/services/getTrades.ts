@@ -5,7 +5,7 @@ export const getTrades = async (
   context: Context
 ) => {
   const prisma = context.prisma
-
+  console.log(strategyId)
   if (strategyId != null) {
     return await prisma.trade.findMany({
       where: {

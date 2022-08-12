@@ -44,6 +44,7 @@ model Trade {
   closeFee            Float?
   transaction         Float
   assigned            Boolean?
+  premium             Float      @default(0)
   strategyId          Int
   strategy            Strategy   @relation(fields: [strategyId], references: [id])
 }

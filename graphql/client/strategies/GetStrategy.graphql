@@ -1,0 +1,23 @@
+query GetStrategy($strategyId: Int!) {
+  strategy(id: $strategyId) {
+    ... on Strategy {
+      id
+      name
+      description
+      ticker
+      value
+      trades {
+        id
+        quantity
+        action
+        type
+        openDate
+        strikePrice
+        expirationDate
+        closeDate
+        transaction
+        premium
+      }
+    }
+  }
+}

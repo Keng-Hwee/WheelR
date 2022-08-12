@@ -9,6 +9,7 @@ export const typeDef = gql`
     value: Float!
     stockAveragePrice: Float
     stockQuantity: Float
+    trades: [Trade]
   }
 
   type Query {

@@ -8,3 +8,12 @@ generates:
       - 'typescript-resolvers'
       - 'typescript-operations'
       - 'typescript-react-query'
+    config:
+      fetcher:
+        endpoint: 'http://localhost:3000/api/graphql'
+        fetchParams: >
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }

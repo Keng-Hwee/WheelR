@@ -14,11 +14,12 @@ export const typeDef = gql`
     closeDate: Date
     closePrice: Float
     closeFee: Float
-    transaction: Float
+    transaction: Float!
+    premium: Float!
   }
 
   type Query {
-    trades(strategyId: Int): [Trade!]!
+    trades(strategyId: Int!): [Trade!]!
     trade(id: Int!): TradeResult!
   }
 

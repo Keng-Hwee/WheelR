@@ -17,6 +17,9 @@ const handler = async (req: IncomingMessage, res: ServerResponse) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
   )
+
+  //req.headers.set('Content-type', 'application/json')
+
   if (req.method === 'OPTIONS') {
     res.end()
     return false

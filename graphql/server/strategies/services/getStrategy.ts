@@ -11,5 +11,9 @@ export const getStrategy = async (id: number, context: Context) => {
   })
 
   if (strategy === null) throw new ApiError(404, 'Strategy not found')
-  else return strategy
+
+  return {
+    __typename: 'Strategy',
+    ...strategy,
+  }
 }

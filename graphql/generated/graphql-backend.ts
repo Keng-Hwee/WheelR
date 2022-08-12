@@ -1,10 +1,36 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
+
+function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
+  return async (): Promise<TData> => {
+    const res = await fetch("http://localhost:3000/api/graphql", {
+    method: "POST",
+    ...({
+  headers: {
+    "Content-Type": "application/json"
+  }
+}
+),
+      body: JSON.stringify({ query, variables }),
+    });
+
+    const json = await res.json();
+
+    if (json.errors) {
+      const { message } = json.errors[0];
+
+      throw new Error(message);
+    }
+
+    return json.data;
+  }
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -67,6 +93,11 @@ export type Query = {
 };
 
 
+export type QueryPortfolioArgs = {
+  id: Scalars['Int'];
+};
+
+
 export type QueryStrategiesArgs = {
   portfolioId: Scalars['Int'];
 };
@@ -83,7 +114,7 @@ export type QueryTradeArgs = {
 
 
 export type QueryTradesArgs = {
-  strategyId?: InputMaybe<Scalars['Int']>;
+  strategyId: Scalars['Int'];
 };
 
 export type Strategy = {
@@ -91,10 +122,11 @@ export type Strategy = {
   description?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   name: Scalars['String'];
-  stockAveragePrice?: Maybe<Scalars['Int']>;
-  stockQuantity?: Maybe<Scalars['Int']>;
+  stockAveragePrice?: Maybe<Scalars['Float']>;
+  stockQuantity?: Maybe<Scalars['Float']>;
   ticker: Scalars['String'];
-  value?: Maybe<Scalars['Int']>;
+  trades?: Maybe<Array<Maybe<Trade>>>;
+  value: Scalars['Float'];
 };
 
 export type StrategyResult = ApiError | Strategy;
@@ -109,10 +141,11 @@ export type Trade = {
   id: Scalars['Int'];
   openDate: Scalars['Date'];
   openFee: Scalars['Float'];
+  premium: Scalars['Float'];
   quantity: Scalars['Float'];
   strikePrice?: Maybe<Scalars['Float']>;
   ticker: Scalars['String'];
-  transaction?: Maybe<Scalars['Float']>;
+  transaction: Scalars['Float'];
   type: Scalars['String'];
 };
 
@@ -249,22 +282,23 @@ export type PortfolioResultResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  portfolio?: Resolver<Maybe<ResolversTypes['PortfolioResult']>, ParentType, ContextType>;
+  portfolio?: Resolver<Maybe<ResolversTypes['PortfolioResult']>, ParentType, ContextType, RequireFields<QueryPortfolioArgs, 'id'>>;
   portfolios?: Resolver<Maybe<Array<Maybe<ResolversTypes['PortfolioResult']>>>, ParentType, ContextType>;
   strategies?: Resolver<Array<ResolversTypes['Strategy']>, ParentType, ContextType, RequireFields<QueryStrategiesArgs, 'portfolioId'>>;
   strategy?: Resolver<ResolversTypes['StrategyResult'], ParentType, ContextType, RequireFields<QueryStrategyArgs, 'id'>>;
   trade?: Resolver<ResolversTypes['TradeResult'], ParentType, ContextType, RequireFields<QueryTradeArgs, 'id'>>;
-  trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType, Partial<QueryTradesArgs>>;
+  trades?: Resolver<Array<ResolversTypes['Trade']>, ParentType, ContextType, RequireFields<QueryTradesArgs, 'strategyId'>>;
 };
 
 export type StrategyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Strategy'] = ResolversParentTypes['Strategy']> = {
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  stockAveragePrice?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  stockQuantity?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  stockAveragePrice?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  stockQuantity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  value?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  trades?: Resolver<Maybe<Array<Maybe<ResolversTypes['Trade']>>>, ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -281,10 +315,11 @@ export type TradeResolvers<ContextType = any, ParentType extends ResolversParent
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   openDate?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   openFee?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  premium?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   quantity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   strikePrice?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   ticker?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  transaction?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  transaction?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -306,3 +341,82 @@ export type Resolvers<ContextType = any> = {
   TradeResult?: TradeResultResolvers<ContextType>;
 };
 
+
+export type GetPortfolioForDashboardQueryVariables = Exact<{
+  portfolioId: Scalars['Int'];
+}>;
+
+
+export type GetPortfolioForDashboardQuery = { __typename?: 'Query', portfolio?: { __typename?: 'ApiError' } | { __typename?: 'Portfolio', name: string, strategies?: Array<{ __typename?: 'Strategy', name: string, ticker: string, value: number } | null> | null } | null };
+
+export type GetStrategyQueryVariables = Exact<{
+  strategyId: Scalars['Int'];
+}>;
+
+
+export type GetStrategyQuery = { __typename?: 'Query', strategy: { __typename?: 'ApiError' } | { __typename?: 'Strategy', id: number, name: string, description?: string | null, ticker: string, value: number, trades?: Array<{ __typename?: 'Trade', id: number, quantity: number, action: string, type: string, openDate: any, strikePrice?: number | null, expirationDate?: any | null, closeDate?: any | null, transaction: number, premium: number } | null> | null } };
+
+
+export const GetPortfolioForDashboardDocument = `
+    query GetPortfolioForDashboard($portfolioId: Int!) {
+  portfolio(id: $portfolioId) {
+    ... on Portfolio {
+      name
+      strategies {
+        name
+        ticker
+        value
+      }
+    }
+  }
+}
+    `;
+export const useGetPortfolioForDashboardQuery = <
+      TData = GetPortfolioForDashboardQuery,
+      TError = unknown
+    >(
+      variables: GetPortfolioForDashboardQueryVariables,
+      options?: UseQueryOptions<GetPortfolioForDashboardQuery, TError, TData>
+    ) =>
+    useQuery<GetPortfolioForDashboardQuery, TError, TData>(
+      ['GetPortfolioForDashboard', variables],
+      fetcher<GetPortfolioForDashboardQuery, GetPortfolioForDashboardQueryVariables>(GetPortfolioForDashboardDocument, variables),
+      options
+    );
+export const GetStrategyDocument = `
+    query GetStrategy($strategyId: Int!) {
+  strategy(id: $strategyId) {
+    ... on Strategy {
+      id
+      name
+      description
+      ticker
+      value
+      trades {
+        id
+        quantity
+        action
+        type
+        openDate
+        strikePrice
+        expirationDate
+        closeDate
+        transaction
+        premium
+      }
+    }
+  }
+}
+    `;
+export const useGetStrategyQuery = <
+      TData = GetStrategyQuery,
+      TError = unknown
+    >(
+      variables: GetStrategyQueryVariables,
+      options?: UseQueryOptions<GetStrategyQuery, TError, TData>
+    ) =>
+    useQuery<GetStrategyQuery, TError, TData>(
+      ['GetStrategy', variables],
+      fetcher<GetStrategyQuery, GetStrategyQueryVariables>(GetStrategyDocument, variables),
+      options
+    );
