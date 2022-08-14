@@ -1,9 +1,7 @@
 import SectionHeader from '../../common/SectionHeader'
-import { Card, CardBody, CardHeader } from '../../common/Card'
-import StrategyListMd from './StrategyListSM'
-import StrategyListSm from './StrategyListXS'
 import StrategyListSM from './StrategyListSM'
 import StrategyListXS from './StrategyListXS'
+import { StrategyContextProvider } from '../../../store/strategyContext'
 
 const StrategyList = () => {
   const strategyList = [
@@ -33,12 +31,14 @@ const StrategyList = () => {
   return (
     <>
       <SectionHeader headerName="STRATEGIES" />
-      <div className="sm:hidden">
-        <StrategyListXS></StrategyListXS>
-      </div>
-      <div className="hidden sm:block">
-        <StrategyListSM></StrategyListSM>
-      </div>
+      <StrategyContextProvider>
+        <div className="sm:hidden">
+          <StrategyListXS></StrategyListXS>
+        </div>
+        <div className="hidden sm:block">
+          <StrategyListSM></StrategyListSM>
+        </div>
+      </StrategyContextProvider>
     </>
   )
 }

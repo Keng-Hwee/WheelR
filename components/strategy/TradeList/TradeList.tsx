@@ -1,3 +1,4 @@
+import { StrategyContextProvider } from '../../../store/strategyContext'
 import SectionHeader from '../../common/SectionHeader'
 import TradeListMD from './TradeListMD'
 import TradeListSM from './TradeListSM'
@@ -13,6 +14,7 @@ const TradeList = () => {
       expirationDate: '',
       closeDate: '20/06/2022',
       transaction: '-1,450',
+      strategyId: 1,
     },
     {
       id: 2,
@@ -24,6 +26,7 @@ const TradeList = () => {
       expirationDate: '25/07/2022',
       closeDate: '22/07/2022',
       transaction: '460.00',
+      strategyId: 1,
     },
     {
       id: 3,
@@ -35,6 +38,7 @@ const TradeList = () => {
       expirationDate: '25/08/2022',
       closeDate: '',
       transaction: '320.00',
+      strategyId: 1,
     },
     {
       id: 4,
@@ -46,18 +50,21 @@ const TradeList = () => {
       expirationDate: '28/08/2022',
       closeDate: '',
       transaction: '410.00',
+      strategyId: 1,
     },
   ]
 
   return (
     <>
       <SectionHeader headerName="TRADES"></SectionHeader>
-      <div className="md:hidden">
-        <TradeListSM></TradeListSM>
-      </div>
-      <div className="hidden md:block">
-        <TradeListMD></TradeListMD>
-      </div>
+      <StrategyContextProvider>
+        <div className="md:hidden">
+          <TradeListSM></TradeListSM>
+        </div>
+        <div className="hidden md:block">
+          <TradeListMD></TradeListMD>
+        </div>
+      </StrategyContextProvider>
     </>
   )
 }

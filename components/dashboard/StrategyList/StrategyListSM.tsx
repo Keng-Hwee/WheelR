@@ -1,7 +1,12 @@
 import SectionHeader from '../../common/SectionHeader'
 import { Card, CardBody, CardHeader } from '../../common/Card'
+import { useContext } from 'react'
+import StrategyContext from '../../../store/strategyContext'
+import Link from 'next/link'
 
 const StrategyListSM = () => {
+  const strategyCtx = useContext(StrategyContext)
+
   const strategyList = [
     {
       id: 1,
@@ -25,6 +30,15 @@ const StrategyListSM = () => {
       premium: '640.81',
     },
   ]
+
+  const OnStrategySelect = (strategyId: number) => {
+    strategyCtx.SetStrategyId(strategyId)
+    const ticker = strategyList.filter(
+      (strategy) => strategy.id === strategyId
+    )[0].ticker
+    strategyCtx.SetTicker(ticker)
+    // navigate to strategy page with the selected strategy id
+  }
 
   return (
     <div>
@@ -51,24 +65,34 @@ const StrategyListSM = () => {
               <tbody>
                 {strategyList.map((strategy) => {
                   return (
-                    <tr key={strategy.id}>
-                      <td className="p-3 text-sm font-bold text-slate-800">
-                        {strategy.name}
-                      </td>
-                      <td className="p-3 text-sm font-bold text-slate-800">
-                        {strategy.ticker}
-                      </td>
-                      <td className="p-3 text-sm font-bold text-slate-800 text-right">
-                        <span className="p-2 text-sm font-semibold tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-40">
-                          {strategy.value}
-                        </span>
-                      </td>
-                      <td className="p-3 text-sm font-bold text-slate-800 text-right">
-                        <span className="p-2 text-sm font-semibold tracking-wider bg-red-200 text-red-800 rounded-lg bg-opacity-40">
-                          {strategy.premium}
-                        </span>
-                      </td>
-                    </tr>
+                    <Link
+                      key={strategy.id}
+                      href={{
+                        pathname: './strategy/[strategyId]',
+                        query: { strategyId: strategy.id },
+                      }}
+                    >
+                      <tr
+                        onClick={() => OnStrategySelect(strategy.id)}
+                      >
+                        <td className="p-3 text-sm font-bold text-slate-800">
+                          {strategy.name}
+                        </td>
+                        <td className="p-3 text-sm font-bold text-slate-800">
+                          {strategy.ticker}
+                        </td>
+                        <td className="p-3 text-sm font-bold text-slate-800 text-right">
+                          <span className="p-2 text-sm font-semibold tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-40">
+                            {strategy.value}
+                          </span>
+                        </td>
+                        <td className="p-3 text-sm font-bold text-slate-800 text-right">
+                          <span className="p-2 text-sm font-semibold tracking-wider bg-red-200 text-red-800 rounded-lg bg-opacity-40">
+                            {strategy.premium}
+                          </span>
+                        </td>
+                      </tr>
+                    </Link>
                   )
                 })}
               </tbody>

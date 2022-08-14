@@ -1,3 +1,7 @@
+interface Props {
+  strategyId: number
+}
+
 const AddTradeButton = () => {
   return (
     <div className="flex justify-end">

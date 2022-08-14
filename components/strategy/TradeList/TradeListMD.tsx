@@ -7,6 +7,7 @@ import AddTradeButton from './AddTradeButton'
 import CloseTradeButton from './CloseTradeButton'
 import DeleteTradeButton from './DeleteTradeButton'
 import EditTradeButton from './EditTradeButton'
+
 const TradeListMD = () => {
   const trades = [
     {
@@ -19,6 +20,7 @@ const TradeListMD = () => {
       expirationDate: '',
       closeDate: '20/06/2022',
       transaction: '-1,450',
+      strategyId: 1,
     },
     {
       id: 2,
@@ -30,6 +32,7 @@ const TradeListMD = () => {
       expirationDate: '25/07/2022',
       closeDate: '22/07/2022',
       transaction: '460.00',
+      strategyId: 1,
     },
     {
       id: 3,
@@ -41,6 +44,7 @@ const TradeListMD = () => {
       expirationDate: '25/08/2022',
       closeDate: '',
       transaction: '320.00',
+      strategyId: 1,
     },
     {
       id: 4,
@@ -52,6 +56,7 @@ const TradeListMD = () => {
       expirationDate: '28/08/2022',
       closeDate: '',
       transaction: '410.00',
+      strategyId: 1,
     },
   ]
 

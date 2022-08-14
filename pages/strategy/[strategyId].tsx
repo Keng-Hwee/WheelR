@@ -6,6 +6,7 @@ import {
 import PremiumCollectionChart from '../../components/strategy/PremiumCollectionChart'
 import StrategyValueChart from '../../components/strategy/StrategyValueChart'
 import TradeList from '../../components/strategy/TradeList/TradeList'
+import { StrategyContextProvider } from '../../store/strategyContext'
 
 const Strategy = () => {
   return (
@@ -50,7 +51,9 @@ const Strategy = () => {
         </div>
 
         <div className="lg:col-span-6">
-          <TradeList />
+          <StrategyContextProvider>
+            <TradeList />
+          </StrategyContextProvider>
         </div>
       </div>
     </div>
