@@ -347,7 +347,7 @@ export type GetPortfolioForDashboardQueryVariables = Exact<{
 }>;
 
 
-export type GetPortfolioForDashboardQuery = { __typename?: 'Query', portfolio?: { __typename?: 'ApiError' } | { __typename?: 'Portfolio', name: string, strategies?: Array<{ __typename?: 'Strategy', name: string, ticker: string, value: number } | null> | null } | null };
+export type GetPortfolioForDashboardQuery = { __typename?: 'Query', portfolio?: { __typename?: 'ApiError', message: string } | { __typename?: 'Portfolio', name: string, strategies?: Array<{ __typename?: 'Strategy', name: string, ticker: string, value: number } | null> | null } | null };
 
 export type GetStrategyQueryVariables = Exact<{
   strategyId: Scalars['Int'];
@@ -367,6 +367,9 @@ export const GetPortfolioForDashboardDocument = `
         ticker
         value
       }
+    }
+    ... on ApiError {
+      message
     }
   }
 }

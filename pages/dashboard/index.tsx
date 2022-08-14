@@ -2,12 +2,25 @@ import { Card } from '../../components/common/Card'
 import PortfolioTrend from '../../components/dashboard/PortfolioTrend'
 import PremiumCollected from '../../components/dashboard/PremiumCollected'
 import StrategyList from '../../components/dashboard/StrategyList/StrategyList'
-import { useGetPortfolioForDashboardQuery } from '../../graphql/generated/graphql-backend'
+import {
+  GetPortfolioForDashboardQuery,
+  useGetPortfolioForDashboardQuery,
+} from '../../graphql/generated/graphql-backend'
 const Dashboard = () => {
   const { data, isLoading } = useGetPortfolioForDashboardQuery({
     portfolioId: 1,
   })
-  console.log(data)
+
+  if (isLoading) {
+    return <div>LOADING!!!!!!</div>
+  }
+
+  if (data?.portfolio?.__typename === 'ApiError') {
+    return <div>{data?.portfolio.message}</div>
+  } else if (data?.portfolio?.__typename === 'Portfolio') {
+    var test = data?.portfolio.strategies
+  }
+
   return (
     <>
       <div className="lg:flex lg:flex-row lg:justify-center mt-5">
