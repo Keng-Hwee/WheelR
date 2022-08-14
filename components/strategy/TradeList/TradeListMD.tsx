@@ -3,6 +3,10 @@ import {
   TrashIcon,
   MinusCircleIcon,
 } from '@heroicons/react/outline'
+import AddTradeButton from './AddTradeButton'
+import CloseTradeButton from './CloseTradeButton'
+import DeleteTradeButton from './DeleteTradeButton'
+import EditTradeButton from './EditTradeButton'
 const TradeListMD = () => {
   const trades = [
     {
@@ -54,6 +58,7 @@ const TradeListMD = () => {
   return (
     <div>
       <div className="drop-shadow-md rounded-lg bg-slate-50 p-4">
+        <AddTradeButton />
         <table className="w-full">
           <thead className="text-slate-400">
             <tr>
@@ -75,9 +80,7 @@ const TradeListMD = () => {
               <th className="p-3 text-sm font-semibold tracking-wide text-right">
                 Transaction
               </th>
-              <th className="p-3 text-sm font-semibold tracking-wide text-right">
-                Actions
-              </th>
+              <th className="p-3 text-sm font-semibold tracking-wide text-right"></th>
             </tr>
           </thead>
           <tbody>
@@ -104,15 +107,9 @@ const TradeListMD = () => {
                     {trade.transaction}
                   </td>
                   <td className="p-3 float-right flex flex-row">
-                    <span className="bg-slate-100 rounded-lg bg-opacity-100 m-2">
-                      <PencilIcon className="h-5 w-5 text-slate-500 m-2" />
-                    </span>
-                    <span className="bg-yellow-100 rounded-lg bg-opacity-70 m-2">
-                      <MinusCircleIcon className="h-5 w-5 text-yellow-500 m-2" />
-                    </span>
-                    <span className="bg-red-100 rounded-lg bg-opacity-40 m-2">
-                      <TrashIcon className="h-5 w-5 text-red-500 m-2" />
-                    </span>
+                    <EditTradeButton />
+                    <CloseTradeButton />
+                    <DeleteTradeButton />
                   </td>
                 </tr>
               )

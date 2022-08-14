@@ -1,6 +1,6 @@
 import SectionHeader from '../../common/SectionHeader'
 import TradeListMD from './TradeListMD'
-import TradeListSM from './TradeListSm'
+import TradeListSM from './TradeListSM'
 const TradeList = () => {
   const trades = [
     {

@@ -3,6 +3,10 @@ import {
   PencilIcon,
   TrashIcon,
 } from '@heroicons/react/outline'
+import AddTradeButton from './AddTradeButton'
+import CloseTradeButton from './CloseTradeButton'
+import DeleteTradeButton from './DeleteTradeButton'
+import EditTradeButton from './EditTradeButton'
 
 interface Props {
   id: number
@@ -38,15 +42,9 @@ const TradeListSMCard = ({
         </div>
 
         <div className="flex flex-row">
-          <span className="bg-slate-100 rounded-lg bg-opacity-100 m-1">
-            <PencilIcon className="h-5 w-5 text-slate-500 m-2" />
-          </span>
-          <span className="bg-yellow-100 rounded-lg bg-opacity-70 m-1">
-            <MinusCircleIcon className="h-5 w-5 text-yellow-500 m-2" />
-          </span>
-          <span className="bg-red-100 rounded-lg bg-opacity-40 m-1">
-            <TrashIcon className="h-5 w-5 text-red-500 m-2" />
-          </span>
+          <EditTradeButton />
+          <CloseTradeButton />
+          <DeleteTradeButton />
         </div>
       </div>
       <div className="flex flex-row space-x-4 mt-5 justify-between">
@@ -115,14 +113,19 @@ const TradeListSM = () => {
 
   return (
     <>
-      {trades.map((trade) => {
-        return (
-          <TradeListSMCard
-            key={trade.id}
-            {...trade}
-          ></TradeListSMCard>
-        )
-      })}
+      <div>
+        <AddTradeButton />
+      </div>
+      <div>
+        {trades.map((trade) => {
+          return (
+            <TradeListSMCard
+              key={trade.id}
+              {...trade}
+            ></TradeListSMCard>
+          )
+        })}
+      </div>
     </>
   )
 }
