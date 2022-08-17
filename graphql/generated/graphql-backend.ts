@@ -356,6 +356,13 @@ export type GetStrategyQueryVariables = Exact<{
 
 export type GetStrategyQuery = { __typename?: 'Query', strategy: { __typename?: 'ApiError' } | { __typename?: 'Strategy', id: number, name: string, description?: string | null, ticker: string, value: number, trades?: Array<{ __typename?: 'Trade', id: number, quantity: number, action: string, type: string, openDate: any, strikePrice?: number | null, expirationDate?: any | null, closeDate?: any | null, transaction: number, premium: number } | null> | null } };
 
+export type GetStrategyForAddTradeQueryVariables = Exact<{
+  strategyId: Scalars['Int'];
+}>;
+
+
+export type GetStrategyForAddTradeQuery = { __typename?: 'Query', strategy: { __typename?: 'ApiError' } | { __typename?: 'Strategy', id: number, ticker: string } };
+
 
 export const GetPortfolioForDashboardDocument = `
     query GetPortfolioForDashboard($portfolioId: Int!) {
@@ -421,5 +428,27 @@ export const useGetStrategyQuery = <
     useQuery<GetStrategyQuery, TError, TData>(
       ['GetStrategy', variables],
       fetcher<GetStrategyQuery, GetStrategyQueryVariables>(GetStrategyDocument, variables),
+      options
+    );
+export const GetStrategyForAddTradeDocument = `
+    query GetStrategyForAddTrade($strategyId: Int!) {
+  strategy(id: $strategyId) {
+    ... on Strategy {
+      id
+      ticker
+    }
+  }
+}
+    `;
+export const useGetStrategyForAddTradeQuery = <
+      TData = GetStrategyForAddTradeQuery,
+      TError = unknown
+    >(
+      variables: GetStrategyForAddTradeQueryVariables,
+      options?: UseQueryOptions<GetStrategyForAddTradeQuery, TError, TData>
+    ) =>
+    useQuery<GetStrategyForAddTradeQuery, TError, TData>(
+      ['GetStrategyForAddTrade', variables],
+      fetcher<GetStrategyForAddTradeQuery, GetStrategyForAddTradeQueryVariables>(GetStrategyForAddTradeDocument, variables),
       options
     );

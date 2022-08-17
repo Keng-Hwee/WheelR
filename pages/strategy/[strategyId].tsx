@@ -6,7 +6,7 @@ import {
 import PremiumCollectionChart from '../../components/strategy/PremiumCollectionChart'
 import StrategyValueChart from '../../components/strategy/StrategyValueChart'
 import TradeList from '../../components/strategy/TradeList/TradeList'
-import { StrategyContextProvider } from '../../store/strategyContext'
+import { StrategyContextProvider } from '../../store/StrategyContext'
 
 const Strategy = () => {
   return (

@@ -1,0 +1,8 @@
+query GetStrategyForAddTrade($strategyId: Int!) {
+  strategy(id: $strategyId) {
+    ... on Strategy {
+      id
+      ticker
+    }
+  }
+}

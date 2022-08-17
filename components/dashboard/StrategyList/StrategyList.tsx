@@ -1,7 +1,7 @@
 import SectionHeader from '../../common/SectionHeader'
 import StrategyListSM from './StrategyListSM'
 import StrategyListXS from './StrategyListXS'
-import { StrategyContextProvider } from '../../../store/strategyContext'
+import { StrategyContextProvider } from '../../../store/StrategyContext'
 
 const StrategyList = () => {
   const strategyList = [

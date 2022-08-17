@@ -1,8 +1,8 @@
 import SectionHeader from '../../common/SectionHeader'
 import { Card, CardBody, CardHeader } from '../../common/Card'
 import { useContext } from 'react'
-import StrategyContext from '../../../store/strategyContext'
 import Link from 'next/link'
+import StrategyContext from '../../../store/StrategyContext'
 
 const StrategyListSM = () => {
   const strategyCtx = useContext(StrategyContext)

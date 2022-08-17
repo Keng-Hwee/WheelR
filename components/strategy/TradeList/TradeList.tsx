@@ -1,4 +1,4 @@
-import { StrategyContextProvider } from '../../../store/strategyContext'
+import { StrategyContextProvider } from '../../../store/StrategyContext'
 import SectionHeader from '../../common/SectionHeader'
 import TradeListMD from './TradeListMD'
 import TradeListSM from './TradeListSM'

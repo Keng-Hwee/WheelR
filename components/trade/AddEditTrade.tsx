@@ -1,5 +1,8 @@
-import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useGetStrategyForAddTradeQuery } from '../../graphql/generated/graphql-backend'
+import StrategyContext from '../../store/StrategyContext'
 
 const AddEditTrade = (props: any) => {
   const [isStock, setIsStock] = useState(true)
@@ -8,8 +11,6 @@ const AddEditTrade = (props: any) => {
   const types = ['STOCK', 'CALL OPTION', 'PUT OPTION']
 
   const { register, handleSubmit } = useForm()
-
-  const isAddMode = true
 
   const handleTypeChange = (event: any) => {
     const selectedValue = event.target.value
