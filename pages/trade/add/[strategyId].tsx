@@ -1,15 +1,7 @@
-import AddEditTrade from '../../../components/trade/AddEditTrade'
-import { useRouter } from 'next/router'
-import { StrategyContextProvider } from '../../../store/StrategyContext'
+import AddTradeForm from '../../../components/trade/AddTradeForm'
 
 const AddTrade = () => {
-  const router = useRouter()
-
-  return (
-    <StrategyContextProvider>
-      <AddEditTrade />
-    </StrategyContextProvider>
-  )
+  return <AddTradeForm />
 }
 
 export default AddTrade

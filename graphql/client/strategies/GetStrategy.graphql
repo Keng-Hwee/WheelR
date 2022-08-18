@@ -19,5 +19,8 @@ query GetStrategy($strategyId: Int!) {
         premium
       }
     }
+    ... on ApiError {
+      message
+    }
   }
 }

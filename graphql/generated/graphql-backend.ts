@@ -354,14 +354,21 @@ export type GetStrategyQueryVariables = Exact<{
 }>;
 
 
-export type GetStrategyQuery = { __typename?: 'Query', strategy: { __typename?: 'ApiError' } | { __typename?: 'Strategy', id: number, name: string, description?: string | null, ticker: string, value: number, trades?: Array<{ __typename?: 'Trade', id: number, quantity: number, action: string, type: string, openDate: any, strikePrice?: number | null, expirationDate?: any | null, closeDate?: any | null, transaction: number, premium: number } | null> | null } };
+export type GetStrategyQuery = { __typename?: 'Query', strategy: { __typename?: 'ApiError', message: string } | { __typename?: 'Strategy', id: number, name: string, description?: string | null, ticker: string, value: number, trades?: Array<{ __typename?: 'Trade', id: number, quantity: number, action: string, type: string, openDate: any, strikePrice?: number | null, expirationDate?: any | null, closeDate?: any | null, transaction: number, premium: number } | null> | null } };
 
 export type GetStrategyForAddTradeQueryVariables = Exact<{
   strategyId: Scalars['Int'];
 }>;
 
 
-export type GetStrategyForAddTradeQuery = { __typename?: 'Query', strategy: { __typename?: 'ApiError' } | { __typename?: 'Strategy', id: number, ticker: string } };
+export type GetStrategyForAddTradeQuery = { __typename?: 'Query', strategy: { __typename?: 'ApiError', message: string } | { __typename?: 'Strategy', id: number, ticker: string } };
+
+export type GetTradeForEditQueryVariables = Exact<{
+  tradeId: Scalars['Int'];
+}>;
+
+
+export type GetTradeForEditQuery = { __typename?: 'Query', trade: { __typename?: 'ApiError', message: string } | { __typename?: 'Trade', id: number, ticker: string, quantity: number, action: string, type: string, openDate: any, openFee: number, strikePrice?: number | null, expirationDate?: any | null, closeDate?: any | null, closePrice?: number | null, closeFee?: number | null, transaction: number } };
 
 
 export const GetPortfolioForDashboardDocument = `
@@ -415,6 +422,9 @@ export const GetStrategyDocument = `
         premium
       }
     }
+    ... on ApiError {
+      message
+    }
   }
 }
     `;
@@ -437,6 +447,9 @@ export const GetStrategyForAddTradeDocument = `
       id
       ticker
     }
+    ... on ApiError {
+      message
+    }
   }
 }
     `;
@@ -450,5 +463,41 @@ export const useGetStrategyForAddTradeQuery = <
     useQuery<GetStrategyForAddTradeQuery, TError, TData>(
       ['GetStrategyForAddTrade', variables],
       fetcher<GetStrategyForAddTradeQuery, GetStrategyForAddTradeQueryVariables>(GetStrategyForAddTradeDocument, variables),
+      options
+    );
+export const GetTradeForEditDocument = `
+    query GetTradeForEdit($tradeId: Int!) {
+  trade(id: $tradeId) {
+    ... on Trade {
+      id
+      ticker
+      quantity
+      action
+      type
+      openDate
+      openFee
+      strikePrice
+      expirationDate
+      closeDate
+      closePrice
+      closeFee
+      transaction
+    }
+    ... on ApiError {
+      message
+    }
+  }
+}
+    `;
+export const useGetTradeForEditQuery = <
+      TData = GetTradeForEditQuery,
+      TError = unknown
+    >(
+      variables: GetTradeForEditQueryVariables,
+      options?: UseQueryOptions<GetTradeForEditQuery, TError, TData>
+    ) =>
+    useQuery<GetTradeForEditQuery, TError, TData>(
+      ['GetTradeForEdit', variables],
+      fetcher<GetTradeForEditQuery, GetTradeForEditQueryVariables>(GetTradeForEditDocument, variables),
       options
     );

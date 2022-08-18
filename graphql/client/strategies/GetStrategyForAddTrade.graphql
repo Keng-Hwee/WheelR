@@ -4,5 +4,8 @@ query GetStrategyForAddTrade($strategyId: Int!) {
       id
       ticker
     }
+    ... on ApiError {
+      message
+    }
   }
 }

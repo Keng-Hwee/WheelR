@@ -1,0 +1,22 @@
+query GetTradeForEdit($tradeId: Int!) {
+  trade(id: $tradeId) {
+    ... on Trade {
+      id
+      ticker
+      quantity
+      action
+      type
+      openDate
+      openFee
+      strikePrice
+      expirationDate
+      closeDate
+      closePrice
+      closeFee
+      transaction
+    }
+    ... on ApiError {
+      message
+    }
+  }
+}
